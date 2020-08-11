@@ -32,7 +32,7 @@ const LoginContainer = () => {
         scopes,
       },
       colors: {
-        brand: '#3BB54A',
+        brand: '#95413A',
       },
     });
 
