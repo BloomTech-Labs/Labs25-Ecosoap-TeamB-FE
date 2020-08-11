@@ -17,7 +17,8 @@ const LoginContainer = () => {
       },
       features: { registration: true },
       // turning this feature on allows your widget to use Okta for user registration
-      logo: 'src/media/logo-white-600.png',
+      logo: './../../../media/logo-320.png',
+      logoText: 'Eco-Soap Bank Logo',
       // add your custom logo to your signing/register widget here.
       i18n: {
         en: {
