@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu, Button } from 'antd';
 
+import '../../../styles/home.css';
+
 // ant.design icons
 import {
   UploadOutlined,
@@ -17,7 +19,7 @@ function RenderHomePage(props) {
 
   return (
     <div>
-      <Layout>
+      <Layout style={{ minHeight: '100vh' }}>
         <Sider
           breakpoint="lg"
           collapsedWidth="0"
@@ -28,30 +30,43 @@ function RenderHomePage(props) {
             console.log(collapsed, type);
           }}
         >
-          <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+          <div className="logo">
+            <img src="./../../media/logo-320.png" alt="Eco-Soap Logo" />
+          </div>
+          <Menu mode="inline" defaultSelectedKeys={['4']}>
             <Menu.Item key="1" icon={<UserOutlined />}>
-              nav 1
+              <Link to="/profile-list">Profiles Example</Link>
             </Menu.Item>
             <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              nav 2
+              <Link to="/example-list">Example List of Items</Link>
             </Menu.Item>
             <Menu.Item key="3" icon={<UploadOutlined />}>
-              nav 3
+              <Link to="/datavis">Data Visualizations Example</Link>
             </Menu.Item>
             <Menu.Item key="4" icon={<UserOutlined />}>
-              nav 4
+              <Link to="/">Main Dashboard</Link>
             </Menu.Item>
+            <Button type="primary" onClick={() => authService.logout()}>
+              Logout
+            </Button>
           </Menu>
         </Sider>
         <Layout>
-          <Header>Header</Header>
-          <Content>Content</Content>
+          <Header>
+            <h1>Hi {userInfo.name} Welcome to Labs Basic SPA</h1>
+          </Header>
+          <Content>
+            <h2>Content</h2>
+            <p>
+              This is an example of a common example of how we'd like for you to
+              approach components.
+            </p>
+          </Content>
           <Footer>Footer</Footer>
         </Layout>
       </Layout>
-      <h1>Hi {userInfo.name} Welcome to Labs Basic SPA</h1>
-      <div>
+
+      {/* <div>
         <p>
           This is an example of a common example of how we'd like for you to
           approach components.
@@ -70,7 +85,7 @@ function RenderHomePage(props) {
             Logout
           </Button>
         </p>
-      </div>
+      </div> */}
     </div>
   );
 }
