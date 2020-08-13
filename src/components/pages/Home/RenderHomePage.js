@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Menu, Button } from 'antd';
+import { Layout, Menu, Button, Typography } from 'antd';
 
 import '../../../styles/home.css';
 
@@ -14,6 +14,7 @@ import {
 function RenderHomePage(props) {
   // constants to support ant.design
   const { Header, Footer, Sider, Content } = Layout;
+  const { Title } = Typography;
 
   const { userInfo, authService } = props;
 
@@ -53,10 +54,11 @@ function RenderHomePage(props) {
         </Sider>
         <Layout>
           <Header>
-            <h1>Hi {userInfo.name} Welcome to Labs Basic SPA</h1>
+            <Title>Hi {userInfo.name} Welcome to Labs Basic SPA</Title>
           </Header>
           <Content>
-            <h2>Content</h2>
+            <Title level={2}>Content</Title>
+            <Title level={3}>H3</Title>
             <p>
               This is an example of a common example of how we'd like for you to
               approach components.
@@ -65,27 +67,6 @@ function RenderHomePage(props) {
           <Footer>Footer</Footer>
         </Layout>
       </Layout>
-
-      {/* <div>
-        <p>
-          This is an example of a common example of how we'd like for you to
-          approach components.
-        </p>
-        <p>
-          <Link to="/profile-list">Profiles Example</Link>
-        </p>
-        <p>
-          <Link to="/example-list">Example List of Items</Link>
-        </p>
-        <p>
-          <Link to="/datavis">Data Visualizations Example</Link>
-        </p>
-        <p>
-          <Button type="primary" onClick={() => authService.logout()}>
-            Logout
-          </Button>
-        </p>
-      </div> */}
     </div>
   );
 }
