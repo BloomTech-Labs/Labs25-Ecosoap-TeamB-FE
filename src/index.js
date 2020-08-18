@@ -10,6 +10,12 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 
 import 'antd/dist/antd.less';
 
+// Apollo Client Imports
+import { ApolloProvider } from 'react-apollo';
+import { ApolloClient } from 'apollo-client';
+import { createHttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+
 import { NotFoundPage } from './components/pages/NotFound';
 import { ExampleListPage } from './components/pages/ExampleList';
 import { ProfileListPage } from './components/pages/ProfileList';
@@ -19,10 +25,21 @@ import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 
+// API address for Apollo
+const httpLink = createHttpLink({
+  uri: process.env.APOLLO_CLIENT_API,
+});
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+});
+
 ReactDOM.render(
   <Router>
     <React.StrictMode>
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </React.StrictMode>
   </Router>,
   document.getElementById('root')
