@@ -25,9 +25,11 @@ import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 
+require('dotenv').config();
+
 // API address for Apollo
 const httpLink = createHttpLink({
-  uri: process.env.APOLLO_CLIENT_API,
+  uri: 'http://35.208.9.187:9092/web-api-2',
 });
 const client = new ApolloClient({
   link: httpLink,

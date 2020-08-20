@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout, Typography } from 'antd';
 import { Sidebar } from '../../common';
+import { TypesList } from '../../DataTypes';
 
 import '../../../styles/home.css';
 
@@ -13,7 +14,7 @@ function RenderHomePage(props) {
 
   return (
     <div>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout>
         <Sidebar />
         <Layout>
           <Header>
@@ -27,6 +28,7 @@ function RenderHomePage(props) {
               approach components.
             </p>
           </Content>
+          <TypesList />
           <Footer>Footer</Footer>
         </Layout>
       </Layout>
