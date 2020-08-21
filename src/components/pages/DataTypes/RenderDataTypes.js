@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Layout, Typography } from 'antd';
 
 import { Sidebar } from '../../common';
-import { TypesList } from '../../DataTypes';
+import { TypesList } from '../../DataTypeTable';
 
 const RenderDataTypesPage = props => {
   const { Header, Footer, Content } = Layout;
