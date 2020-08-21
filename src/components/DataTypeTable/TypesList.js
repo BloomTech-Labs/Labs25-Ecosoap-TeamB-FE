@@ -20,9 +20,7 @@ const TypeList = () => {
     {
       title: 'ID',
       dataIndex: 'id',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => a.id - b.id,
-      // sortDirections: ['descend'],
+      sorter: (a, b) => a.id.localeCompare(b.id),
     },
     {
       title: 'Name',
