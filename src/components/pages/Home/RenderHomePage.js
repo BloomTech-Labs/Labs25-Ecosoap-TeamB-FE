@@ -1,9 +1,6 @@
 import React from 'react';
 import { Layout, Typography } from 'antd';
 import { Sidebar } from '../../common';
-import { TypesList } from '../../DataTypes';
-
-import '../../../styles/home.css';
 
 function RenderHomePage(props) {
   // constants to support ant.design
@@ -16,9 +13,11 @@ function RenderHomePage(props) {
     <div>
       <Layout>
         <Sidebar />
-        <Layout>
+        <Layout style={{ minHeight: '100vh' }}>
           <Header>
-            <Title>Hi {userInfo.name} Welcome to Labs Basic SPA</Title>
+            <Title>
+              Hi {userInfo.name}. Welcome to Eco-Soap Bank Map Admin Dashboard
+            </Title>
           </Header>
           <Content>
             <Title level={2}>Content</Title>
@@ -28,7 +27,6 @@ function RenderHomePage(props) {
               approach components.
             </p>
           </Content>
-          <TypesList />
           <Footer>Footer</Footer>
         </Layout>
       </Layout>

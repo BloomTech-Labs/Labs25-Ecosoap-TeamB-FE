@@ -2,13 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu, Button } from 'antd';
 
-// import '../../../styles/home.css';
+import './../../styles/sideBar.css';
 
 // ant.design icons
 import {
-  UploadOutlined,
+  EnvironmentOutlined,
   UserOutlined,
-  VideoCameraOutlined,
+  GlobalOutlined,
+  DatabaseOutlined,
 } from '@ant-design/icons';
 
 function Sidebar(props) {
@@ -29,22 +30,25 @@ function Sidebar(props) {
         onCollapse={(collapsed, type) => {
           console.log(collapsed, type);
         }}
-        style={{ minHeight: '100vh' }}
+        style={{ minHeight: '100%' }}
       >
         <div className="logo">
           <img src="./../../media/logo-320.png" alt="Eco-Soap Logo" />
         </div>
-        <Menu mode="inline" defaultSelectedKeys={['4']}>
+        <Menu mode="inline">
           <Menu.Item key="1" icon={<UserOutlined />}>
-            <Link to="/profile-list">Profiles Example</Link>
+            <Link to="/profile-list">Profile</Link>
           </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            <Link to="/example-list">Example List of Items</Link>
+          <Menu.Item key="2" icon={<GlobalOutlined />}>
+            <Link to="/map">Map Console</Link>
           </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-            <Link to="/datavis">Data Visualizations Example</Link>
+          <Menu.Item key="3" icon={<EnvironmentOutlined />}>
+            <Link to="/datarecords">Data Records Console</Link>
           </Menu.Item>
-          <Menu.Item key="4" icon={<UserOutlined />}>
+          <Menu.Item key="4" icon={<DatabaseOutlined />}>
+            <Link to="/datatypes">Data Types Console</Link>
+          </Menu.Item>
+          <Menu.Item key="5" icon={<UserOutlined />}>
             <Link to="/">Main Dashboard</Link>
           </Menu.Item>
           <Button type="primary" onClick={() => authService.logout()}>
