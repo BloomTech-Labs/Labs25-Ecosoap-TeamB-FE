@@ -12,7 +12,7 @@ const RenderDataTypesPage = props => {
   return (
     <div>
       <>
-        <Layout>
+        <Layout style={{ minHeight: '100vh' }}>
           <Sidebar />
           <Layout>
             <Header>
