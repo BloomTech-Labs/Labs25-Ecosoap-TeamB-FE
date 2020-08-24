@@ -10,19 +10,39 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 
 import 'antd/dist/antd.less';
 
+// Apollo Client Imports
+import { ApolloProvider } from 'react-apollo';
+import { ApolloClient } from 'apollo-client';
+import { createHttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+
 import { NotFoundPage } from './components/pages/NotFound';
 import { ExampleListPage } from './components/pages/ExampleList';
 import { ProfileListPage } from './components/pages/ProfileList';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
 import { ExampleDataViz } from './components/pages/ExampleDataViz';
+import { DataTypesPage } from './components/pages/DataTypes';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
+
+require('dotenv').config();
+
+// API address for Apollo
+const httpLink = createHttpLink({
+  uri: 'http://35.208.9.187:9092/web-api-2',
+});
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+});
 
 ReactDOM.render(
   <Router>
     <React.StrictMode>
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </React.StrictMode>
   </Router>,
   document.getElementById('root')
@@ -50,9 +70,10 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
-        <SecureRoute path="/example-list" component={ExampleListPage} />
+        <SecureRoute path="/map" component={ExampleListPage} />
         <SecureRoute path="/profile-list" component={ProfileListPage} />
-        <SecureRoute path="/datavis" component={ExampleDataViz} />
+        <SecureRoute path="/datarecords" component={ExampleDataViz} />
+        <SecureRoute path="/datatypes" component={DataTypesPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </Security>
