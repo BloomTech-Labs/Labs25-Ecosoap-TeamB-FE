@@ -15,6 +15,18 @@ const TypeList = () => {
       }
     }
   `;
+  // Fake data for while having DB issues
+  let typesToRender = [
+    {
+      id: 'Fake Data',
+      name: 'Type2',
+    },
+    {
+      id: 'Fake Data 2',
+      name: 'Type3',
+    },
+  ];
+
   // Column definitions for Ant Design table
   const columns = [
     {
@@ -36,17 +48,17 @@ const TypeList = () => {
 
   return (
     <div>
-      <h2>Type List Comp</h2>
+      <h2>Database</h2>
       <div>
-        {/* <Query query={TYPE_QUERY}>
-          {() => linksToRender.map(link => <Type key={link.id} link={link} />)}
-        </Query> */}
         <Query query={TYPE_QUERY}>
           {({ loading, error, data }) => {
             if (loading) {
               return <div>Fetching</div>;
             }
-            if (error) {
+            if (error.graphQLErrors) {
+              console.log(error.graphQLErrors);
+              // return <div>graphQL Error</div>;
+            } else if (error.networkError) {
               // Check if error response is JSON
               try {
                 JSON.parse(error.networkError.bodyText);
@@ -56,8 +68,11 @@ const TypeList = () => {
               }
               return <div>{error.networkError.message}</div>;
             }
-            const typesToRender = data.types;
-            console.log('Data', data);
+            if (data) {
+              console.log('Data', data);
+
+              typesToRender = data.types;
+            }
 
             return (
               <div>
