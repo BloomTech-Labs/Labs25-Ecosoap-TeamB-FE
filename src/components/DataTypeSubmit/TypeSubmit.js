@@ -1,25 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
+
 const TypeSubmit = () => {
+  const [newType, setNewType] = useState('');
+
+  const POST_TYPE_MUTATION = gql`
+    mutation {
+      createType(input: { name: "Test Type From App", fields: [] }) {
+        type {
+          name
+        }
+      }
+    }
+  `;
+
+  // Layout variables for Ant Design form
   const layout = {
     labelCol: {
-      span: 4,
+      span: 12,
       offset: 4,
     },
     wrapperCol: {
-      span: 8,
+      span: 16,
     },
   };
   const tailLayout = {
     wrapperCol: {
-      offset: 8,
-      span: 16,
+      offset: 20,
+      span: 4,
     },
   };
 
   const onFinish = values => {
     console.log('Success:', values);
+    setNewType(values.newDataType);
   };
 
   const onFinishFailed = errorInfo => {
@@ -31,6 +48,7 @@ const TypeSubmit = () => {
       <Form
         {...layout}
         name="basic"
+        layout="inline"
         initialValues={{
           remember: true,
         }}
