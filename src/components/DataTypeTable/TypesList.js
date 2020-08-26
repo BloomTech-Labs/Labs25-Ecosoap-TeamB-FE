@@ -55,20 +55,21 @@ const TypeList = () => {
             if (loading) {
               return <div>Fetching</div>;
             }
-            if (error.graphQLErrors) {
-              console.log(error.graphQLErrors);
-              // return <div>graphQL Error</div>;
-            } else if (error.networkError) {
-              // Check if error response is JSON
-              try {
-                JSON.parse(error.networkError.bodyText);
-              } catch (e) {
-                // If not replace parsing error message with real one
-                error.networkError.message = error.networkError.bodyText;
+            if (error !== undefined) {
+              console.log(error);
+
+              if (error.networkError !== undefined) {
+                // Check if error response is JSON
+                try {
+                  JSON.parse(error.networkError.bodyText);
+                } catch (e) {
+                  // If not replace parsing error message with real one
+                  error.networkError.message = error.networkError.bodyText;
+                }
+                return <div>{error.networkError.message}</div>;
               }
-              return <div>{error.networkError.message}</div>;
             }
-            if (data) {
+            if (data.types !== undefined) {
               console.log('Data', data);
 
               typesToRender = data.types;

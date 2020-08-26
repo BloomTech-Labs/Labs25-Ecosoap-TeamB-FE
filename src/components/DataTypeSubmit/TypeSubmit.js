@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 
-import { Mutation } from 'react-apollo';
+import { useMutation } from 'react-apollo';
 import gql from 'graphql-tag';
+
+const POST_TYPE_MUTATION = gql`
+  mutation createNewType($name: String!, $fields: [FieldInput]) {
+    createType(input: { name: $name, fields: $fields }) {
+      type {
+        id
+        name
+      }
+    }
+  }
+`;
 
 const TypeSubmit = () => {
   const [newType, setNewType] = useState('');
 
-  const POST_TYPE_MUTATION = gql`
-    mutation {
-      createType(input: { name: "Test Type From App", fields: [] }) {
-        type {
-          name
-        }
-      }
-    }
-  `;
+  const [createNewType] = useMutation(POST_TYPE_MUTATION);
 
   // Layout variables for Ant Design form
   const layout = {
@@ -34,9 +37,17 @@ const TypeSubmit = () => {
     },
   };
 
+  const inputChange = e => {
+    setNewType(e.target.value);
+  };
+
   const onFinish = values => {
     console.log('Success:', values);
     setNewType(values.newDataType);
+    console.log(newType);
+    createNewType({
+      variables: { name: newType, fields: [] },
+    });
   };
 
   const onFinishFailed = errorInfo => {
@@ -58,6 +69,8 @@ const TypeSubmit = () => {
         <Form.Item
           label="New Data Type"
           name="newDataType"
+          value={newType}
+          onChange={inputChange}
           rules={[
             {
               required: true,
