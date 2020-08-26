@@ -28,6 +28,7 @@ const DELETE_TYPE_MUTATION = gql`
 
 const TypeList = () => {
   let typesToRender = [];
+  const [deleteType] = useMutation(DELETE_TYPE_MUTATION);
 
   // Column definitions for Ant Design table
   const columns = [
@@ -47,9 +48,47 @@ const TypeList = () => {
       dataIndex: 'delete',
       key: 'x',
       render: () => (
-        <Button danger onClick={e => console.log(e.target)}>
-          <DeleteOutlined />
-        </Button>
+        // e.target.parentElement.parentElement.firstChild.firstChild.data
+        <Button
+          danger
+          onClick={e => {
+            if (
+              typeof e.target.parentElement.parentElement.firstChild.firstChild
+                .data === 'string'
+            ) {
+              return deleteType({
+                variables: {
+                  id:
+                    e.target.parentElement.parentElement.firstChild.firstChild
+                      .data,
+                },
+              });
+              //   console.log(
+              //   e.target.parentElement.parentElement.firstChild
+              //     .firstChild.data
+              // )
+            }
+          }}
+          icon={
+            <DeleteOutlined
+              onClick={
+                e =>
+                  deleteType({
+                    variables: {
+                      id:
+                        e.target.parentElement.parentElement.parentElement
+                          .parentElement.firstChild.firstChild.data,
+                    },
+                  })
+
+                // console.log(
+                //   e.target.parentElement.parentElement.parentElement
+                //     .parentElement.firstChild.firstChild.data
+                // )
+              }
+            />
+          }
+        />
       ),
     },
   ];
