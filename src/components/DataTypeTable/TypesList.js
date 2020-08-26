@@ -5,27 +5,18 @@ import gql from 'graphql-tag';
 
 import { Table } from 'antd';
 
-const TypeList = () => {
-  // Query for Apollo Client <Query>
-  const TYPE_QUERY = gql`
-    {
-      types {
-        id
-        name
-      }
+// Query for Apollo Client <Query>
+const TYPE_QUERY = gql`
+  {
+    types {
+      id
+      name
     }
-  `;
-  // Fake data for while having DB issues
-  let typesToRender = [
-    {
-      id: 'Fake Data',
-      name: 'Type2',
-    },
-    {
-      id: 'Fake Data 2',
-      name: 'Type3',
-    },
-  ];
+  }
+`;
+
+const TypeList = () => {
+  let typesToRender = [];
 
   // Column definitions for Ant Design table
   const columns = [
@@ -50,7 +41,7 @@ const TypeList = () => {
     <div>
       <h2>Database</h2>
       <div>
-        <Query query={TYPE_QUERY}>
+        <Query query={TYPE_QUERY} pollInterval={300}>
           {({ loading, error, data }) => {
             if (loading) {
               return <div>Fetching</div>;
@@ -70,8 +61,6 @@ const TypeList = () => {
               }
             }
             if (data.types !== undefined) {
-              console.log('Data', data);
-
               typesToRender = data.types;
             }
 

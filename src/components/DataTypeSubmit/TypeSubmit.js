@@ -16,6 +16,7 @@ const POST_TYPE_MUTATION = gql`
 `;
 
 const TypeSubmit = () => {
+  const [form] = Form.useForm();
   const [newType, setNewType] = useState('');
 
   const [createNewType] = useMutation(POST_TYPE_MUTATION);
@@ -42,12 +43,11 @@ const TypeSubmit = () => {
   };
 
   const onFinish = values => {
-    console.log('Success:', values);
     setNewType(values.newDataType);
-    console.log(newType);
     createNewType({
       variables: { name: newType, fields: [] },
     });
+    form.resetFields();
   };
 
   const onFinishFailed = errorInfo => {
@@ -61,7 +61,7 @@ const TypeSubmit = () => {
         name="basic"
         layout="inline"
         initialValues={{
-          remember: true,
+          newDataType: '',
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
