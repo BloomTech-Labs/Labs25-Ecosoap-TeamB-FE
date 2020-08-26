@@ -1,20 +1,34 @@
 import React from 'react';
 
-import { Query } from 'react-apollo';
+import { Query, useMutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import { Table } from 'antd';
+// ant.design icons
+import { DeleteOutlined } from '@ant-design/icons';
+import { Table, Button } from 'antd';
+
+// Query for Apollo Client <Query>
+const TYPE_QUERY = gql`
+  {
+    types {
+      id
+      name
+    }
+  }
+`;
+
+const DELETE_TYPE_MUTATION = gql`
+  mutation deleteType($id: ID!) {
+    deleteType(input: { id: $id }) {
+      success
+      error
+    }
+  }
+`;
 
 const TypeList = () => {
-  // Query for Apollo Client <Query>
-  const TYPE_QUERY = gql`
-    {
-      types {
-        id
-        name
-      }
-    }
-  `;
+  let typesToRender = [];
+
   // Column definitions for Ant Design table
   const columns = [
     {
@@ -28,6 +42,16 @@ const TypeList = () => {
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
+    {
+      title: 'Delete',
+      dataIndex: 'delete',
+      key: 'x',
+      render: () => (
+        <Button danger onClick={e => console.log(e.target)}>
+          <DeleteOutlined />
+        </Button>
+      ),
+    },
   ];
 
   function onChange(pagination, filters, sorter, extra) {
@@ -36,28 +60,30 @@ const TypeList = () => {
 
   return (
     <div>
-      <h2>Type List Comp</h2>
+      <h2>Database</h2>
       <div>
-        {/* <Query query={TYPE_QUERY}>
-          {() => linksToRender.map(link => <Type key={link.id} link={link} />)}
-        </Query> */}
-        <Query query={TYPE_QUERY}>
+        <Query query={TYPE_QUERY} pollInterval={300}>
           {({ loading, error, data }) => {
             if (loading) {
               return <div>Fetching</div>;
             }
-            if (error) {
-              // Check if error response is JSON
-              try {
-                JSON.parse(error.networkError.bodyText);
-              } catch (e) {
-                // If not replace parsing error message with real one
-                error.networkError.message = error.networkError.bodyText;
+            if (error !== undefined) {
+              console.log(error);
+
+              if (error.networkError !== undefined) {
+                // Check if error response is JSON
+                try {
+                  JSON.parse(error.networkError.bodyText);
+                } catch (e) {
+                  // If not replace parsing error message with real one
+                  error.networkError.message = error.networkError.bodyText;
+                }
+                return <div>{error.networkError.message}</div>;
               }
-              return <div>{error.networkError.message}</div>;
             }
-            const typesToRender = data.types;
-            console.log('Data', data);
+            if (data.types !== undefined) {
+              typesToRender = data.types;
+            }
 
             return (
               <div>
