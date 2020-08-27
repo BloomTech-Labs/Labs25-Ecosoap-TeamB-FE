@@ -20,6 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="639a24f3-b77c-4468-a264-458d68beb60a" name="Default Changelist" comment="" />
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,6 +55,7 @@
       <workItem from="1598485636032" duration="10000" />
       <workItem from="1598485665458" duration="1041000" />
       <workItem from="1598494570509" duration="350000" />
+
     </task>
     <servers />
   </component>
