@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Query, useMutation } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -18,7 +18,7 @@ const TYPE_QUERY = gql`
 `;
 
 const UPDATE_TYPE_MUTATION = gql`
-  mutation UpdateTypeInput($id: ID!, $name: String, $fields: [FieldInput]) {
+  mutation updateTypeMutation($id: ID!, $name: String, $fields: [FieldInput]) {
     updateType(input: { id: $id, name: $name, fields: $fields }) {
       type {
         id
@@ -39,7 +39,39 @@ const DELETE_TYPE_MUTATION = gql`
 
 const TypeList = () => {
   let typesToRender = [];
+
+  const [updatedType, setUpdatedType] = useState({
+    id: 0,
+    name: '',
+    fields: [],
+  });
+
   const [deleteType] = useMutation(DELETE_TYPE_MUTATION);
+  const [updateTypeMutation] = useMutation(UPDATE_TYPE_MUTATION);
+
+  const inputTypeUpdate = e => {
+    const newTypeData = {
+      ...updatedType,
+      [e.target.name]: e.target.value,
+    };
+    setUpdatedType(newTypeData);
+  };
+
+  const submitUpdateType = e => {
+    e.preventDefault();
+    updateTypeMutation({
+      variables: {
+        id: updatedType.id,
+        name: updatedType.name,
+        fields: updatedType.fields,
+      },
+    });
+    setUpdatedType({
+      id: 0,
+      name: '',
+      fields: [],
+    });
+  };
 
   // Column definitions for Ant Design table
   const columns = [
