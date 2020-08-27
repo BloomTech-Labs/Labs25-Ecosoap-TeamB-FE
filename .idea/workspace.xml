@@ -20,12 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="639a24f3-b77c-4468-a264-458d68beb60a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env.sample" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/Home/RenderHomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Home/RenderHomePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +55,7 @@
       <workItem from="1598406398473" duration="3920000" />
       <workItem from="1598485636032" duration="10000" />
       <workItem from="1598485665458" duration="1041000" />
+      <workItem from="1598497807346" duration="12000" />
     </task>
     <servers />
   </component>
