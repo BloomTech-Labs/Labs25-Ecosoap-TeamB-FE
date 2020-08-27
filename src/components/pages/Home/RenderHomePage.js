@@ -1,31 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Layout, Typography } from 'antd';
 import { Sidebar } from '../../common';
+import gql from 'graphql-tag';
+import { useQuery, useMutation } from 'react-apollo';
+import './RenderHomePage.css';
+
+const mutation = gql`
+  mutation register($email: String!, $password: String!) {
+    register(input: { email: $email, password: $password }) {
+      success
+      error
+    }
+  }
+`;
 
 function RenderHomePage(props) {
   // constants to support ant.design
   const { Header, Footer, Content } = Layout;
   const { Title } = Typography;
-
   const { userInfo } = props;
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [createType] = useMutation(mutation, {
+    variables: { email, password },
+  });
   return (
     <div>
       <Layout>
         <Sidebar />
         <Layout style={{ minHeight: '100vh' }}>
           <Header>
-            <Title>
-              Hi {userInfo.name}. Welcome to Eco-Soap Bank Map Admin Dashboard
-            </Title>
+            <Title>Hi {userInfo.name}. You can add a new user</Title>
           </Header>
           <Content>
-            <Title level={2}>Content</Title>
-            <Title level={3}>H3</Title>
-            <p>
-              This is an example of a common example of how we'd like for you to
-              approach components.
-            </p>
+            <div className="input__form">
+              <input
+                placeholder="email"
+                className="input_example"
+                type="email"
+                onChange={e => setEmail(e.target.value)}
+              />
+              <input
+                placeholder="password"
+                className="input_example"
+                type="password"
+                onChange={e => setPassword(e.target.value)}
+              />
+              <button className="add__button" onClick={createType}>
+                Add user
+              </button>
+            </div>
           </Content>
           <Footer>Footer</Footer>
         </Layout>
