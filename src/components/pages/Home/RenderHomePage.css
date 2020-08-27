@@ -1,0 +1,14 @@
+.input_example{
+    width: 200pt;
+    border: none;
+    margin-left: 50px;
+}
+.add__button{
+    margin-left: 10px;
+    width: 100px;
+    border: none;
+    background-color: darkgrey;
+}
+.input__form{
+    margin-top: 10px;
+}
