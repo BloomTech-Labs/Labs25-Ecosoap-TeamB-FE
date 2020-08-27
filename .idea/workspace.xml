@@ -26,6 +26,7 @@
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/Home/RenderHomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Home/RenderHomePage.js" afterDir="false" />
     </list>
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -64,6 +65,7 @@
       <workItem from="1598485665458" duration="1041000" />
       <workItem from="1598497807346" duration="595000" />
       <workItem from="1598498440124" duration="2848000" />
+
     </task>
     <servers />
   </component>
