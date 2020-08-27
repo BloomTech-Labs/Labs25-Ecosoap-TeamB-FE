@@ -16,7 +16,7 @@ function RenderHomePage(props) {
         <Layout style={{ minHeight: '100vh' }}>
           <Header>
             <Title>
-              Hi {userInfo.name}. Welcome to Eco-Soap Bank Map Admin Dashboard
+              Hi {userInfo.name}. Welcome to Eco-Soap Bank Map Admin Dashboarddddd
             </Title>
           </Header>
           <Content>
