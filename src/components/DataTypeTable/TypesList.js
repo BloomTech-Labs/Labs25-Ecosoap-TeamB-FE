@@ -17,6 +17,17 @@ const TYPE_QUERY = gql`
   }
 `;
 
+const UPDATE_TYPE_MUTATION = gql`
+  mutation UpdateTypeInput($id: ID!, $name: String, $fields: [FieldInput]) {
+    updateType(input: { id: $id, name: $name, fields: $fields }) {
+      type {
+        id
+        name
+      }
+    }
+  }
+`;
+
 const DELETE_TYPE_MUTATION = gql`
   mutation deleteType($id: ID!) {
     deleteType(input: { id: $id }) {
@@ -63,28 +74,18 @@ const TypeList = () => {
                       .data,
                 },
               });
-              //   console.log(
-              //   e.target.parentElement.parentElement.firstChild
-              //     .firstChild.data
-              // )
             }
           }}
           icon={
             <DeleteOutlined
-              onClick={
-                e =>
-                  deleteType({
-                    variables: {
-                      id:
-                        e.target.parentElement.parentElement.parentElement
-                          .parentElement.firstChild.firstChild.data,
-                    },
-                  })
-
-                // console.log(
-                //   e.target.parentElement.parentElement.parentElement
-                //     .parentElement.firstChild.firstChild.data
-                // )
+              onClick={e =>
+                deleteType({
+                  variables: {
+                    id:
+                      e.target.parentElement.parentElement.parentElement
+                        .parentElement.firstChild.firstChild.data,
+                  },
+                })
               }
             />
           }
