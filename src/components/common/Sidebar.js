@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu, Button } from 'antd';
+import { useOktaAuth } from '@okta/okta-react';
 
 import './../../styles/sideBar.css';
 
@@ -16,11 +17,10 @@ function Sidebar(props) {
   // constants to support ant.design
   const { Sider } = Layout;
 
-  const { authService } = props;
+  const { authService } = useOktaAuth();
 
   return (
     <div>
-      {/* <Layout style={{ minHeight: '100vh' }}> */}
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
@@ -56,8 +56,6 @@ function Sidebar(props) {
           </Button>
         </Menu>
       </Sider>
-
-      {/* </Layout> */}
     </div>
   );
 }
