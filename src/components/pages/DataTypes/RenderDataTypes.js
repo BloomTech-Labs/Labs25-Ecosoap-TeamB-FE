@@ -4,7 +4,8 @@ import { Layout, Typography } from 'antd';
 
 import { Sidebar } from '../../common';
 import { TypesList } from '../../DataTypeTable';
-import { TypeSubmit } from '../../DataTypeSubmit';
+// TODO: Remove after finishing data types edit functionality
+import EditableTable from './temporary-editable-table';
 
 const RenderDataTypesPage = props => {
   const { Header, Footer, Content } = Layout;
@@ -20,8 +21,10 @@ const RenderDataTypesPage = props => {
               <Title> Data Types Console</Title>
             </Header>
             <Content>
-              <TypeSubmit />
               <TypesList />
+
+              {/* // TODO: Remove after finishing data types edit functionality */}
+              <EditableTable />
             </Content>
             <Footer>Footer</Footer>
           </Layout>

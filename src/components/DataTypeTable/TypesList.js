@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 
-import { Query, useMutation } from 'react-apollo';
+// Apollo imports
+import { useMutation, useQuery } from 'react-apollo';
 import gql from 'graphql-tag';
 
-// ant.design icons
+// ant.design imports
 import { DeleteOutlined } from '@ant-design/icons';
-import { Table, Button } from 'antd';
+import { Typography, Table, Button, Input, Popconfirm, Form } from 'antd';
+
+import { TypeSubmit } from './../DataTypeSubmit';
 
 // Query for Apollo Client <Query>
 const TYPE_QUERY = gql`
@@ -38,16 +41,47 @@ const DELETE_TYPE_MUTATION = gql`
 `;
 
 const TypeList = () => {
-  let typesToRender = [];
+  const { Title } = Typography;
 
+  let typesToRender = [];
   const [updatedType, setUpdatedType] = useState({
     id: 0,
     name: '',
     fields: [],
   });
 
+  // TEMPORARY WHILE API IS DOWN
+  // for (let i = 1; i < 15; i++) {
+  //   typesToRender.push({
+  //     id: i.toString(),
+  //     name: `Name ${i}`,
+  //   });
+  // }
+  ////////////////////////////////
+
   const [deleteType] = useMutation(DELETE_TYPE_MUTATION);
   const [updateTypeMutation] = useMutation(UPDATE_TYPE_MUTATION);
+  const { loading, error, data, refetch } = useQuery(TYPE_QUERY);
+
+  if (loading) {
+    return <div>Fetching</div>;
+  }
+  if (error !== undefined) {
+    console.log(error);
+    if (error.networkError !== undefined) {
+      // Check if error response is JSON
+      try {
+        JSON.parse(error.networkError.bodyText);
+      } catch (e) {
+        // If not replace parsing error message with real one
+        error.networkError.message = error.networkError.bodyText;
+      }
+      return <div>{error.networkError.message}</div>;
+    }
+  }
+  if (data.types !== undefined) {
+    typesToRender = data.types;
+  }
 
   const inputTypeUpdate = e => {
     const newTypeData = {
@@ -99,26 +133,32 @@ const TypeList = () => {
               typeof e.target.parentElement.parentElement.firstChild.firstChild
                 .data === 'string'
             ) {
-              return deleteType({
-                variables: {
-                  id:
-                    e.target.parentElement.parentElement.firstChild.firstChild
-                      .data,
-                },
-              });
+              return (
+                deleteType({
+                  variables: {
+                    id:
+                      e.target.parentElement.parentElement.firstChild.firstChild
+                        .data,
+                  },
+                }),
+                refetch()
+              );
             }
           }}
           icon={
             <DeleteOutlined
-              onClick={e =>
-                deleteType({
-                  variables: {
-                    id:
-                      e.target.parentElement.parentElement.parentElement
-                        .parentElement.firstChild.firstChild.data,
-                  },
-                })
-              }
+              onClick={e => {
+                return (
+                  deleteType({
+                    variables: {
+                      id:
+                        e.target.parentElement.parentElement.parentElement
+                          .parentElement.firstChild.firstChild.data,
+                    },
+                  }),
+                  refetch()
+                );
+              }}
             />
           }
         />
@@ -132,42 +172,14 @@ const TypeList = () => {
 
   return (
     <div>
-      <h2>Database</h2>
+      <Title level={2}>Database</Title>
       <div>
-        <Query query={TYPE_QUERY} pollInterval={300}>
-          {({ loading, error, data }) => {
-            if (loading) {
-              return <div>Fetching</div>;
-            }
-            if (error !== undefined) {
-              console.log(error);
-
-              if (error.networkError !== undefined) {
-                // Check if error response is JSON
-                try {
-                  JSON.parse(error.networkError.bodyText);
-                } catch (e) {
-                  // If not replace parsing error message with real one
-                  error.networkError.message = error.networkError.bodyText;
-                }
-                return <div>{error.networkError.message}</div>;
-              }
-            }
-            if (data.types !== undefined) {
-              typesToRender = data.types;
-            }
-
-            return (
-              <div>
-                <Table
-                  columns={columns}
-                  dataSource={typesToRender}
-                  onChange={onChange}
-                />
-              </div>
-            );
-          }}
-        </Query>
+        <TypeSubmit refetch={refetch} />
+        <Table
+          columns={columns}
+          dataSource={typesToRender}
+          onChange={onChange}
+        />
       </div>
     </div>
   );
