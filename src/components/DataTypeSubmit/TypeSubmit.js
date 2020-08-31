@@ -42,8 +42,7 @@ const TypeSubmit = props => {
     setNewType(e.target.value);
   };
 
-  const onFinish = values => {
-    setNewType(values.newDataType);
+  const onFinish = () => {
     createNewType({
       variables: { name: newType, fields: [] },
     });

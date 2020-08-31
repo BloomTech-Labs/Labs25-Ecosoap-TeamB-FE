@@ -75,21 +75,14 @@ const TypeList = () => {
     typesToRender = data.types;
   }
 
-  const inputTypeUpdate = e => {
-    e.persist();
-    setUpdatedType(e.target.value);
-  };
-
-  const submitUpdateType = key => {
-    // e.preventDefault();
-    console.log('Key', key);
-    console.log('Update', updatedType);
-    console.log('Fields', []);
+  const submitUpdateType = props => {
+    console.log('n');
+    console.log('k', props.key);
 
     updateTypeMutation({
       variables: {
-        id: key.toString(),
-        name: updatedType.toString(),
+        id: props.key.toString(),
+        name: props.newType.name.toString(),
       },
     });
     setUpdatedType('');
@@ -103,7 +96,6 @@ const TypeList = () => {
       ...record,
     });
     setEditingKey(record.id);
-    console.log(record);
   };
 
   const cancel = () => {
@@ -111,11 +103,9 @@ const TypeList = () => {
   };
 
   const save = async key => {
-    // console.log(key);
-    // console.log(updatedType);
     try {
-      await form.validateFields();
-      submitUpdateType(key);
+      const newType = await form.validateFields();
+      submitUpdateType({ key, newType });
       setEditingKey('');
     } catch (errInfo) {
       console.log('Validate Failed:', errInfo);
@@ -147,7 +137,7 @@ const TypeList = () => {
               },
             ]}
           >
-            <Input onChange={inputTypeUpdate} />
+            <Input />
           </Form.Item>
         ) : (
           children
@@ -178,23 +168,24 @@ const TypeList = () => {
         const editable = isEditing(record);
         return editable ? (
           <span>
-            <a
-              href="javascript:;"
+            <Button
               onClick={() => save(record.id)}
               style={{
                 marginRight: 8,
               }}
+              type="primary"
+              size="small"
             >
               Save
-            </a>
+            </Button>
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
+              <Button size="small">Cancel</Button>
             </Popconfirm>
           </span>
         ) : (
-          <a disabled={editingKey !== ''} onClick={() => edit(record)}>
+          <Button disabled={editingKey !== ''} onClick={() => edit(record)}>
             Edit
-          </a>
+          </Button>
         );
       },
     },
@@ -260,7 +251,7 @@ const TypeList = () => {
     };
   });
 
-  function onChange(pagination, filters, sorter, extra) {
+  function tableFcns(pagination, filters, sorter, extra) {
     console.log('params', pagination, filters, sorter, extra);
   }
 
@@ -282,7 +273,7 @@ const TypeList = () => {
             dataSource={typesToRender}
             columns={mergedColumns}
             rowClassName="editable-row"
-            onChange={onChange}
+            onChange={tableFcns}
           />
         </Form>
       </div>
