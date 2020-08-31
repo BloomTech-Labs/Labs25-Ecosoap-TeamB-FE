@@ -22,9 +22,6 @@ const RenderDataTypesPage = props => {
             </Header>
             <Content>
               <TypesList />
-
-              {/* // TODO: Remove after finishing data types edit functionality */}
-              <EditableTable />
             </Content>
             <Footer>Footer</Footer>
           </Layout>

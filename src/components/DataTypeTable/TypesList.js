@@ -19,16 +19,6 @@ const TYPE_QUERY = gql`
     }
   }
 `;
-// const POST_TYPE_MUTATION = gql`
-//   mutation createNewType($name: String!, $fields: [FieldInput]) {
-//     createType(input: { name: $name, fields: $fields }) {
-//       type {
-//         id
-//         name
-//       }
-//     }
-//   }
-// `;
 
 const UPDATE_TYPE_MUTATION = gql`
   mutation updateTypeMutation($id: ID!, $name: String) {
@@ -49,40 +39,6 @@ const DELETE_TYPE_MUTATION = gql`
     }
   }
 `;
-
-// const EditableCell = ({
-//   editing,
-//   dataIndex,
-//   title,
-//   inputType,
-//   record,
-//   index,
-//   children,
-//   ...restProps
-// }) => {
-//   return (
-//     <td {...restProps}>
-//       {editing ? (
-//         <Form.Item
-//           name={dataIndex}
-//           style={{
-//             margin: 0,
-//           }}
-//           rules={[
-//             {
-//               required: true,
-//               message: `Please Input ${title}!`,
-//             },
-//           ]}
-//         >
-//           <Input onChange={inputTypeUpdate} />
-//         </Form.Item>
-//       ) : (
-//         children
-//       )}
-//     </td>
-//   );
-// };
 
 const TypeList = () => {
   const { Title } = Typography;
@@ -121,10 +77,6 @@ const TypeList = () => {
 
   const inputTypeUpdate = e => {
     e.persist();
-    // const newTypeData = {
-    //   ...updatedType,
-    //   [e.target.name]: e.target.value,
-    // };
     setUpdatedType(e.target.value);
   };
 
@@ -158,40 +110,17 @@ const TypeList = () => {
     setEditingKey('');
   };
 
-  const save = key => {
+  const save = async key => {
     // console.log(key);
     // console.log(updatedType);
-    submitUpdateType(key);
-    setEditingKey('');
-
-    // try {
-    //   const row = await form.validateFields();
-    //   const newData = [...data];
-    //   const index = newData.findIndex(item => key === item.key);
-
-    //   if (index > -1) {
-    //     const item = newData[index];
-    //     newData.splice(index, 1, { ...item, ...row });
-    //     console.log(newData);
-    //     setEditingKey('');
-    //   } else {
-    //     newData.push(row);
-    //     console.log(newData);
-    //     setEditingKey('');
-    //   }
-    // } catch (errInfo) {
-    //   console.log('Validate Failed:', errInfo);
-    // }
+    try {
+      await form.validateFields();
+      submitUpdateType(key);
+      setEditingKey('');
+    } catch (errInfo) {
+      console.log('Validate Failed:', errInfo);
+    }
   };
-
-  // TEMPORARY WHILE API IS DOWN
-  // for (let i = 1; i < 15; i++) {
-  //   typesToRender.push({
-  //     id: i.toString(),
-  //     name: `Name ${i}`,
-  //   });
-  // }
-  ////////////////////////////////
 
   const EditableCell = ({
     editing,
@@ -275,7 +204,6 @@ const TypeList = () => {
       editable: false,
       key: 'x',
       render: () => (
-        // e.target.parentElement.parentElement.firstChild.firstChild.data
         <Button
           danger
           onClick={e => {
@@ -354,17 +282,9 @@ const TypeList = () => {
             dataSource={typesToRender}
             columns={mergedColumns}
             rowClassName="editable-row"
-            // pagination={{
-            //   onChange: cancel,
-            // }}
             onChange={onChange}
           />
         </Form>
-        {/* <Table
-          columns={columns}
-          dataSource={typesToRender}
-          onChange={onChange}
-        /> */}
       </div>
     </div>
   );
