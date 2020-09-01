@@ -15,7 +15,8 @@ const POST_TYPE_MUTATION = gql`
   }
 `;
 
-const TypeSubmit = () => {
+
+const TypeSubmit = props => {
   const [form] = Form.useForm();
   const [newType, setNewType] = useState('');
 
@@ -42,11 +43,12 @@ const TypeSubmit = () => {
     setNewType(e.target.value);
   };
 
-  const onFinish = values => {
-    setNewType(values.newDataType);
+
+  const onFinish = () => {
     createNewType({
       variables: { name: newType, fields: [] },
     });
+    props.refetch();
     form.resetFields();
   };
 
