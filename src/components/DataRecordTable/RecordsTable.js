@@ -27,9 +27,107 @@ const RECORD_QUERY = gql`
 `;
 
 const RecordsTable = () => {
+  const { Title } = Typography;
+  const [form] = Form.useForm();
+
+  let recordsToRender = [];
+
+  //   const [editingKey, setEditingKey] = useState('');
+
+  //   const [deleteType] = useMutation(DELETE_TYPE_MUTATION);
+  //   const [updateTypeMutation] = useMutation(UPDATE_TYPE_MUTATION);
+  const { loading, error, data, refetch } = useQuery(RECORD_QUERY, {
+    pollInterval: 20000,
+  });
+
+  if (loading) {
+    return <div>Fetching</div>;
+  }
+  if (error !== undefined) {
+    console.log(error);
+    if (error.networkError !== undefined) {
+      // Check if error response is JSON
+      try {
+        JSON.parse(error.networkError.bodyText);
+      } catch (e) {
+        // If not replace parsing error message with real one
+        error.networkError.message = error.networkError.bodyText;
+      }
+      return <div>{error.networkError.message}</div>;
+    }
+  }
+  if (data.records !== undefined) {
+    recordsToRender = data.records;
+  }
+  console.log('records', recordsToRender);
+
+  // Column definitions for ant design table
+  const columns = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      editable: false,
+      sorter: (a, b) => a.id.localeCompare(b.id),
+    },
+    {
+      title: 'Record Name',
+      dataIndex: 'name',
+      editable: true,
+      defaultSortOrder: 'ascend',
+      sorter: (a, b) => a.name.localeCompare(b.name),
+    },
+    {
+      title: 'Record Type',
+      dataIndex: 'type',
+      render: record => record.name,
+      editable: true,
+      sorter: (a, b) => a.type.name.localeCompare(b.type.name),
+    },
+    {
+      title: 'Location',
+      children: [
+        {
+          title: 'Latitude',
+          dataIndex: 'coordinates',
+          render: record => record.latitude,
+          editable: true,
+        },
+        {
+          title: 'Longitude',
+          dataIndex: 'coordinates',
+          render: record => record.longitude,
+          editable: true,
+        },
+      ],
+    },
+  ];
+
+  function tableFcns(pagination, filters, sorter, extra) {
+    console.log('params', pagination, filters, sorter, extra);
+  }
   return (
     <>
-      <h3>Table Here</h3>
+      <div>
+        <h2>Form To GO Here</h2>
+      </div>
+      <div>
+        <Title level={2}>Database</Title>
+        {/* <Form form={form} component={false}> */}
+        <Table
+          // components={{
+          //   body: {
+          //     cell: EditableCell,
+          //   },
+          // }}
+          bordered
+          dataSource={recordsToRender}
+          // columns={mergedColumns}
+          columns={columns}
+          rowClassName="editable-row"
+          onChange={tableFcns}
+        />
+        {/* </Form> */}
+      </div>
     </>
   );
 };
