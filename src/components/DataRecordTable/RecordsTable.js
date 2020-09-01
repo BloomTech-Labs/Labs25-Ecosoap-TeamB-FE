@@ -25,6 +25,14 @@ const RECORD_QUERY = gql`
     }
   }
 `;
+const DELETE_RECORD_MUTATION = gql`
+  mutation deleteRecord($id: ID!) {
+    deleteRecord(input: { id: $id }) {
+      success
+      error
+    }
+  }
+`;
 
 const RecordsTable = () => {
   const { Title } = Typography;
@@ -34,7 +42,7 @@ const RecordsTable = () => {
 
   //   const [editingKey, setEditingKey] = useState('');
 
-  //   const [deleteType] = useMutation(DELETE_TYPE_MUTATION);
+  const [deleteRecord] = useMutation(DELETE_RECORD_MUTATION);
   //   const [updateTypeMutation] = useMutation(UPDATE_TYPE_MUTATION);
   const { loading, error, data, refetch } = useQuery(RECORD_QUERY, {
     pollInterval: 20000,
@@ -99,6 +107,43 @@ const RecordsTable = () => {
           editable: true,
         },
       ],
+    },
+    {
+      title: 'Delete',
+      dataIndex: 'delete',
+      editable: false,
+      key: 'id',
+      render: () => (
+        <Button
+          danger
+          onClick={e => {
+            if (e.target.type === 'button') {
+              return (
+                deleteRecord({
+                  variables: {
+                    id:
+                      e.target.parentElement.parentElement.firstChild.firstChild
+                        .data,
+                  },
+                }),
+                refetch()
+              );
+            } else {
+              return (
+                deleteRecord({
+                  variables: {
+                    id:
+                      e.target.parentElement.parentElement.parentElement
+                        .parentElement.firstChild.innerText,
+                  },
+                }),
+                refetch()
+              );
+            }
+          }}
+          icon={<DeleteOutlined />}
+        />
+      ),
     },
   ];
 
