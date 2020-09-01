@@ -21,7 +21,7 @@ import { ExampleListPage } from './components/pages/ExampleList';
 import { ProfileListPage } from './components/pages/ProfileList';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
-import { ExampleDataViz } from './components/pages/ExampleDataViz';
+import { DataRecordsPage } from './components/pages/DataRecords';
 import { DataTypesPage } from './components/pages/DataTypes';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
@@ -72,7 +72,7 @@ function App() {
         />
         <SecureRoute path="/map" component={ExampleListPage} />
         <SecureRoute path="/profile-list" component={ProfileListPage} />
-        <SecureRoute path="/datarecords" component={ExampleDataViz} />
+        <SecureRoute path="/datarecords" component={DataRecordsPage} />
         <SecureRoute path="/datatypes" component={DataTypesPage} />
         <Route component={NotFoundPage} />
       </Switch>
