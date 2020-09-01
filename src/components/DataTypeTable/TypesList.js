@@ -8,7 +8,6 @@ import gql from 'graphql-tag';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Typography, Table, Button, Input, Popconfirm, Form } from 'antd';
 
-
 import { TypeSubmit } from './../DataTypeSubmit';
 
 // Query for Apollo Client <Query>
@@ -17,7 +16,6 @@ const TYPE_QUERY = gql`
     types {
       id
       name
-
     }
   }
 `;
@@ -32,7 +30,6 @@ const UPDATE_TYPE_MUTATION = gql`
     }
   }
 `;
-
 
 const DELETE_TYPE_MUTATION = gql`
   mutation deleteType($id: ID!) {
@@ -49,7 +46,6 @@ const TypeList = () => {
 
   let typesToRender = [];
 
-  const [updatedType, setUpdatedType] = useState('');
   const [editingKey, setEditingKey] = useState('');
 
   const [deleteType] = useMutation(DELETE_TYPE_MUTATION);
@@ -79,16 +75,12 @@ const TypeList = () => {
   }
 
   const submitUpdateType = props => {
-    console.log('n');
-    console.log('k', props.key);
-
     updateTypeMutation({
       variables: {
         id: props.key.toString(),
         name: props.newType.name.toString(),
       },
     });
-    setUpdatedType('');
   };
 
   const isEditing = record => record.id === editingKey;
@@ -260,7 +252,6 @@ const TypeList = () => {
 
   return (
     <div>
-
       <TypeSubmit refetch={refetch} />
 
       <div>
