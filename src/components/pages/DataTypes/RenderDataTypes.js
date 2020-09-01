@@ -4,7 +4,6 @@ import { Layout, Typography } from 'antd';
 
 import { Sidebar } from '../../common';
 import { TypesList } from '../../DataTypeTable';
-import { TypeSubmit } from '../../DataTypeSubmit';
 
 const RenderDataTypesPage = props => {
   const { Header, Footer, Content } = Layout;
@@ -20,7 +19,6 @@ const RenderDataTypesPage = props => {
               <Title> Data Types Console</Title>
             </Header>
             <Content>
-              <TypeSubmit />
               <TypesList />
             </Content>
             <Footer>Footer</Footer>
