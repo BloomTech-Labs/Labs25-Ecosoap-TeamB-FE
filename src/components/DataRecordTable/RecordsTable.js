@@ -18,6 +18,11 @@ const RECORD_QUERY = gql`
         id
         name
       }
+      fields {
+        id
+        name
+        value
+      }
       coordinates {
         latitude
         longitude
@@ -67,19 +72,33 @@ const RecordsTable = () => {
   if (data.records !== undefined) {
     recordsToRender = data.records;
   }
-  console.log('records', recordsToRender);
+  console.log('records', recordsToRender[0].fields);
 
+  // Define nested tables to display field data
+  const expandedRowRender = props => {
+    console.log(props);
+    const columns = [
+      { title: 'Field Id', dataIndex: 'id', key: 'date' },
+      { title: 'Field Name', dataIndex: 'name', key: 'name' },
+      { title: 'Field Value', dataIndex: 'value', key: 'value' },
+    ];
+
+    return <Table columns={columns} dataSource={props.fields} />;
+  };
   // Column definitions for ant design table
   const columns = [
     {
       title: 'ID',
       dataIndex: 'id',
+      key: 'id',
+
       editable: false,
       sorter: (a, b) => a.id.localeCompare(b.id),
     },
     {
       title: 'Record Name',
       dataIndex: 'name',
+      key: 'name',
       editable: true,
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.name.localeCompare(b.name),
@@ -87,6 +106,8 @@ const RecordsTable = () => {
     {
       title: 'Record Type',
       dataIndex: 'type',
+      key: 'type',
+
       render: record => record.name,
       editable: true,
       sorter: (a, b) => a.type.name.localeCompare(b.type.name),
@@ -168,6 +189,8 @@ const RecordsTable = () => {
           dataSource={recordsToRender}
           // columns={mergedColumns}
           columns={columns}
+          rowKey="id"
+          expandable={{ expandedRowRender }}
           rowClassName="editable-row"
           onChange={tableFcns}
         />
