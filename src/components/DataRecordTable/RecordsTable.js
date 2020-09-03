@@ -76,14 +76,15 @@ const RecordsTable = () => {
 
   // Define nested tables to display field data
   const expandedRowRender = props => {
-    console.log(props);
     const columns = [
       { title: 'Field Id', dataIndex: 'id', key: 'date' },
       { title: 'Field Name', dataIndex: 'name', key: 'name' },
       { title: 'Field Value', dataIndex: 'value', key: 'value' },
     ];
 
-    return <Table columns={columns} dataSource={props.fields} />;
+    return (
+      <Table columns={columns} dataSource={props.fields} pagination={false} />
+    );
   };
   // Column definitions for ant design table
   const columns = [
@@ -142,9 +143,7 @@ const RecordsTable = () => {
               return (
                 deleteRecord({
                   variables: {
-                    id:
-                      e.target.parentElement.parentElement.firstChild.firstChild
-                        .data,
+                    id: e.target.parentElement.parentElement.dataset.rowKey,
                   },
                 }),
                 refetch()
@@ -155,7 +154,7 @@ const RecordsTable = () => {
                   variables: {
                     id:
                       e.target.parentElement.parentElement.parentElement
-                        .parentElement.firstChild.innerText,
+                        .parentElement.dataset.rowKey,
                   },
                 }),
                 refetch()
