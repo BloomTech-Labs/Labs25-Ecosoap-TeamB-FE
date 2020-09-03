@@ -8,6 +8,9 @@ import gql from 'graphql-tag';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Typography, Table, Button, Input, Popconfirm, Form } from 'antd';
 
+// App component imports
+import { RecordSubmit } from './../DataRecordSubmit';
+
 // Apollo Client queries and mutation
 const RECORD_QUERY = gql`
   {
@@ -72,7 +75,7 @@ const RecordsTable = () => {
   if (data.records !== undefined) {
     recordsToRender = data.records;
   }
-  console.log('records', recordsToRender[0].fields);
+  // console.log('records', recordsToRender);
 
   // Define nested tables to display field data
   const expandedRowRender = props => {
@@ -173,7 +176,8 @@ const RecordsTable = () => {
   return (
     <>
       <div>
-        <h2>Form To GO Here</h2>
+        <h2>Submit new data record:</h2>
+        <RecordSubmit refetch={refetch} />
       </div>
       <div>
         <Title level={2}>Database</Title>
