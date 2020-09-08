@@ -52,11 +52,11 @@ const POST_RECORD_MUTATION = gql`
 
 // Layout variables for Ant Design Form
 const layout = {
-  labelCol: { span: 4 },
-  wrapperCol: { span: 16 },
+  labelCol: { span: 4, offset: 2 },
+  wrapperCol: { span: 10 },
 };
 const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
+  wrapperCol: { offset: 10, span: 16 },
 };
 
 const RecordSubmit = props => {
@@ -87,31 +87,22 @@ const RecordSubmit = props => {
     }
   } else if (data.types !== undefined) {
     dataTypes = data.types;
+    console.log(dataTypes);
   }
-  const onGenderChange = value => {
-    switch (value) {
-      case 'male':
-        form.setFieldsValue({
-          note: 'Hi, man!',
-        });
-        return;
 
-      case 'female':
-        form.setFieldsValue({
-          note: 'Hi, lady!',
-        });
-        return;
+  // Generate dropdown entries fro selecting Data Types
+  const types = [];
+  for (let i = 0; i < dataTypes.length; i++) {
+    types.push(<Select value={dataTypes[i].id}>{dataTypes[i].name}</Select>);
+  }
 
-      case 'other':
-        form.setFieldsValue({
-          note: 'Hi there!',
-        });
-    }
+  const onTypeChange = value => {
+    console.log(value);
   };
 
-  const onReset = () => {
-    form.resetFields();
-  };
+  // const onReset = () => {
+  //   form.resetFields();
+  // };
 
   const onFinish = values => {
     console.log('Success:', values);
@@ -125,8 +116,8 @@ const RecordSubmit = props => {
       <Form
         {...layout}
         name="basic"
-        layout="vertical"
-        // initialValues={{ remember: true }}
+        // layout="vertical"
+        initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
@@ -150,12 +141,10 @@ const RecordSubmit = props => {
         >
           <Select
             placeholder="Select data type."
-            onChange={onGenderChange}
+            onChange={onTypeChange}
             allowClear
           >
-            <Select value="male">male</Select>
-            <Select value="female">female</Select>
-            <Select value="other">other</Select>
+            {types}
           </Select>
         </Form.Item>
         <Form.Item
@@ -198,20 +187,26 @@ const RecordSubmit = props => {
                         name={[field.name, 'first']}
                         fieldKey={[field.fieldKey, 'first']}
                         rules={[
-                          { required: true, message: 'Missing first name' },
+                          {
+                            required: true,
+                            message: 'Missing field name',
+                          },
                         ]}
                       >
-                        <Input placeholder="First Name" />
+                        <Input placeholder="Field Name" />
                       </Form.Item>
                       <Form.Item
                         {...field}
                         name={[field.name, 'last']}
                         fieldKey={[field.fieldKey, 'last']}
                         rules={[
-                          { required: true, message: 'Missing last name' },
+                          {
+                            required: true,
+                            message: 'Missing field value',
+                          },
                         ]}
                       >
-                        <Input placeholder="Last Name" />
+                        <Input placeholder="Field Value" />
                       </Form.Item>
 
                       <MinusCircleOutlined
@@ -243,7 +238,7 @@ const RecordSubmit = props => {
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
-          <Button onClick={onReset}>Reset</Button>
+          {/* <Button onClick={onReset}>Reset</Button> */}
         </Form.Item>
       </Form>
     </>
