@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Input, Button, Space, Select } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
@@ -61,7 +61,6 @@ const tailLayout = {
 
 const RecordSubmit = props => {
   const [form] = Form.useForm();
-  const [newRecord, setNewRecord] = useState('');
   let dataTypes = [];
 
   const [createNewRecord] = useMutation(POST_RECORD_MUTATION);
@@ -103,7 +102,6 @@ const RecordSubmit = props => {
   };
 
   const onFinish = values => {
-    console.log('Success:', values);
     createNewRecord({
       variables: {
         name: values.name,
