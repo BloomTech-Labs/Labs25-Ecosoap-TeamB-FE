@@ -97,15 +97,25 @@ const RecordSubmit = props => {
   }
 
   const onTypeChange = value => {
-    console.log(value);
+    form.setFieldsValue({
+      dataRecordType: 'value',
+    });
   };
-
-  // const onReset = () => {
-  //   form.resetFields();
-  // };
 
   const onFinish = values => {
     console.log('Success:', values);
+    createNewRecord({
+      variables: {
+        name: values.name,
+        typeId: values.dataRecordType,
+        coordinates: {
+          latitude: parseFloat(values.latitude),
+          longitude: parseFloat(values.longitude),
+        },
+        fields: values.fields,
+      },
+    });
+    props.refetch();
   };
 
   const onFinishFailed = errorInfo => {
@@ -184,8 +194,8 @@ const RecordSubmit = props => {
                     >
                       <Form.Item
                         {...field}
-                        name={[field.name, 'first']}
-                        fieldKey={[field.fieldKey, 'first']}
+                        name={[field.name, 'name']}
+                        fieldKey={[field.fieldKey, 'name']}
                         rules={[
                           {
                             required: true,
@@ -197,8 +207,8 @@ const RecordSubmit = props => {
                       </Form.Item>
                       <Form.Item
                         {...field}
-                        name={[field.name, 'last']}
-                        fieldKey={[field.fieldKey, 'last']}
+                        name={[field.name, 'value']}
+                        fieldKey={[field.fieldKey, 'value']}
                         rules={[
                           {
                             required: true,
@@ -238,7 +248,6 @@ const RecordSubmit = props => {
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
-          {/* <Button onClick={onReset}>Reset</Button> */}
         </Form.Item>
       </Form>
     </>
