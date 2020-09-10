@@ -40,13 +40,13 @@ function Sidebar(props) {
             <Link to="/profile-list">Profile</Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<GlobalOutlined />}>
-            <Link to="/map">Map Console</Link>
+            <Link to="/map">Map</Link>
           </Menu.Item>
           <Menu.Item key="3" icon={<EnvironmentOutlined />}>
-            <Link to="/datarecords">Data Records Console</Link>
+            <Link to="/datarecords">Data Records</Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<DatabaseOutlined />}>
-            <Link to="/datatypes">Data Types Console</Link>
+            <Link to="/datatypes">Data Types</Link>
           </Menu.Item>
           <Menu.Item key="5" icon={<UserOutlined />}>
             <Link to="/">Main Dashboard</Link>
