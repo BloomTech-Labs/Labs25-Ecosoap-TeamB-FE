@@ -129,14 +129,6 @@ const RecordsTable = () => {
   // Column definitions for ant design table
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-
-      editable: false,
-      sorter: (a, b) => a.id.localeCompare(b.id),
-    },
-    {
       title: 'Record Name',
       dataIndex: 'name',
       key: 'name',
@@ -174,32 +166,19 @@ const RecordsTable = () => {
       dataIndex: 'delete',
       editable: false,
       key: 'id',
-      render: () => (
+      render: (_, record) => (
         <Row justify="center">
           <Button
             danger
             onClick={e => {
-              if (e.target.type === 'button') {
-                return (
-                  deleteRecord({
-                    variables: {
-                      id: e.target.parentElement.parentElement.dataset.rowKey,
-                    },
-                  }),
-                  refetch()
-                );
-              } else {
-                return (
-                  deleteRecord({
-                    variables: {
-                      id:
-                        e.target.parentElement.parentElement.parentElement
-                          .parentElement.dataset.rowKey,
-                    },
-                  }),
-                  refetch()
-                );
-              }
+              return (
+                deleteRecord({
+                  variables: {
+                    id: record.id,
+                  },
+                }),
+                refetch()
+              );
             }}
             icon={<DeleteOutlined />}
           />

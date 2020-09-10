@@ -143,12 +143,6 @@ const TypeList = () => {
 
   // Column definitions for Ant Design table
   const columns = [
-    // {
-    //   title: 'ID',
-    //   dataIndex: 'id',
-    //   editable: false,
-    //   sorter: (a, b) => a.id.localeCompare(b.id),
-    // },
     {
       title: 'Data Type',
       dataIndex: 'name',
