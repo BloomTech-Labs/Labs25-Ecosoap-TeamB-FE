@@ -10,7 +10,7 @@ import { Typography, Table, Button, Input, Popconfirm, Form } from 'antd';
 
 import { TypeSubmit } from './../DataTypeSubmit';
 
-// Query for Apollo Client <Query>
+// Query for Apollo Client
 const TYPE_QUERY = gql`
   {
     types {

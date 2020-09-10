@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Menu, Button } from 'antd';
+import { Layout, Menu, Button, Row } from 'antd';
 import { useOktaAuth } from '@okta/okta-react';
 
 import './../../styles/sideBar.css';
@@ -51,9 +51,11 @@ function Sidebar(props) {
           <Menu.Item key="5" icon={<UserOutlined />}>
             <Link to="/">Main Dashboard</Link>
           </Menu.Item>
-          <Button type="primary" onClick={() => authService.logout()}>
-            Logout
-          </Button>
+          <Row justify="center">
+            <Button type="primary" onClick={() => authService.logout()}>
+              Logout
+            </Button>
+          </Row>
         </Menu>
       </Sider>
     </div>
