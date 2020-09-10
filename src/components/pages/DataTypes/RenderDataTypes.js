@@ -6,7 +6,7 @@ import { Sidebar } from '../../common';
 import { TypesList } from '../../DataTypeTable';
 
 const RenderDataTypesPage = props => {
-  const { Header, Footer, Content } = Layout;
+  const { Header, Content } = Layout;
   const { Title } = Typography;
 
   return (
@@ -21,7 +21,6 @@ const RenderDataTypesPage = props => {
             <Content>
               <TypesList />
             </Content>
-            <Footer>Footer</Footer>
           </Layout>
         </Layout>
       </>

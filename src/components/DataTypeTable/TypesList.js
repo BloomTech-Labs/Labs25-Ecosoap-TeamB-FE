@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // Apollo imports
-import { useMutation, useQuery } from 'react-apollo';
+import { useMutation, useQuery, renderToStringWithData } from 'react-apollo';
 import gql from 'graphql-tag';
 
 // ant.design imports
@@ -143,12 +143,12 @@ const TypeList = () => {
 
   // Column definitions for Ant Design table
   const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      editable: false,
-      sorter: (a, b) => a.id.localeCompare(b.id),
-    },
+    // {
+    //   title: 'ID',
+    //   dataIndex: 'id',
+    //   editable: false,
+    //   sorter: (a, b) => a.id.localeCompare(b.id),
+    // },
     {
       title: 'Data Type',
       dataIndex: 'name',
@@ -157,7 +157,7 @@ const TypeList = () => {
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
-      title: 'Operation',
+      // title: 'Operation',
       dataIndex: 'operation',
       render: (_, record) => {
         const editable = isEditing(record);
@@ -185,46 +185,24 @@ const TypeList = () => {
       },
     },
     {
-      title: 'Delete',
+      // title: 'Delete',
       dataIndex: 'delete',
       editable: false,
       key: 'x',
-      render: () => (
+      render: (_, record) => (
         <Button
           danger
           onClick={e => {
-            if (
-              typeof e.target.parentElement.parentElement.firstChild.firstChild
-                .data === 'string'
-            ) {
-              return (
-                deleteType({
-                  variables: {
-                    id:
-                      e.target.parentElement.parentElement.firstChild.firstChild
-                        .data,
-                  },
-                }),
-                refetch()
-              );
-            }
+            return (
+              deleteType({
+                variables: {
+                  id: record.id,
+                },
+              }),
+              refetch()
+            );
           }}
-          icon={
-            <DeleteOutlined
-              onClick={e => {
-                return (
-                  deleteType({
-                    variables: {
-                      id:
-                        e.target.parentElement.parentElement.parentElement
-                          .parentElement.firstChild.firstChild.data,
-                    },
-                  }),
-                  refetch()
-                );
-              }}
-            />
-          }
+          icon={<DeleteOutlined />}
         />
       ),
     },
