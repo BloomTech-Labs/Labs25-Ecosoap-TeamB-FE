@@ -86,7 +86,6 @@ const RecordSubmit = props => {
     }
   } else if (data.types !== undefined) {
     dataTypes = data.types;
-    console.log(dataTypes);
   }
 
   // Generate dropdown entries fro selecting Data Types
