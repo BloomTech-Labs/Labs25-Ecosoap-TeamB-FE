@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 
 // ant.design imports
 import { DeleteOutlined } from '@ant-design/icons';
-import { Typography, Table, Button, Input, Popconfirm, Form } from 'antd';
+import { Typography, Table, Button, Input, Popconfirm, Form, Row } from 'antd';
 
 import { TypeSubmit } from './../DataTypeSubmit';
 
@@ -178,9 +178,11 @@ const TypeList = () => {
             </Popconfirm>
           </span>
         ) : (
-          <Button disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Edit
-          </Button>
+          <Row justify="center">
+            <Button disabled={editingKey !== ''} onClick={() => edit(record)}>
+              Edit
+            </Button>
+          </Row>
         );
       },
     },
@@ -190,20 +192,22 @@ const TypeList = () => {
       editable: false,
       key: 'x',
       render: (_, record) => (
-        <Button
-          danger
-          onClick={e => {
-            return (
-              deleteType({
-                variables: {
-                  id: record.id,
-                },
-              }),
-              refetch()
-            );
-          }}
-          icon={<DeleteOutlined />}
-        />
+        <Row justify="center">
+          <Button
+            danger
+            onClick={e => {
+              return (
+                deleteType({
+                  variables: {
+                    id: record.id,
+                  },
+                }),
+                refetch()
+              );
+            }}
+            icon={<DeleteOutlined />}
+          />
+        </Row>
       ),
     },
   ];
