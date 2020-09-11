@@ -20,13 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="639a24f3-b77c-4468-a264-458d68beb60a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/pages/Home/RenderHomePage.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/ExampleList/Map.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env.sample" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Home/RenderHomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Home/RenderHomePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/ExampleList/ExampleListContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ExampleList/ExampleListContainer.js" afterDir="false" />
     </list>
-
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,7 +67,9 @@
       <workItem from="1598485665458" duration="1041000" />
       <workItem from="1598497807346" duration="595000" />
       <workItem from="1598498440124" duration="2848000" />
-
+      <workItem from="1599763998648" duration="221000" />
+      <workItem from="1599764240009" duration="2408000" />
+      <workItem from="1599853895199" duration="2984000" />
     </task>
     <servers />
   </component>
@@ -85,29 +89,29 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1775" height="264" key="GridCell.Tab.0.bottom" timestamp="1598298217246">
+    <state width="1878" height="263" key="GridCell.Tab.0.bottom" timestamp="1599764221895">
       <screen x="0" y="23" width="1920" height="979" />
     </state>
-    <state width="1775" height="264" key="GridCell.Tab.0.bottom/0.23.1920.979@0.23.1920.979" timestamp="1598298217246" />
-    <state width="1775" height="264" key="GridCell.Tab.0.center" timestamp="1598298217246">
+    <state width="1878" height="263" key="GridCell.Tab.0.bottom/0.23.1920.979@0.23.1920.979" timestamp="1599764221895" />
+    <state width="1878" height="263" key="GridCell.Tab.0.center" timestamp="1599764221890">
       <screen x="0" y="23" width="1920" height="979" />
     </state>
-    <state width="1775" height="264" key="GridCell.Tab.0.center/0.23.1920.979@0.23.1920.979" timestamp="1598298217246" />
-    <state width="1775" height="264" key="GridCell.Tab.0.left" timestamp="1598298217245">
+    <state width="1878" height="263" key="GridCell.Tab.0.center/0.23.1920.979@0.23.1920.979" timestamp="1599764221890" />
+    <state width="1878" height="263" key="GridCell.Tab.0.left" timestamp="1599764221889">
       <screen x="0" y="23" width="1920" height="979" />
     </state>
-    <state width="1775" height="264" key="GridCell.Tab.0.left/0.23.1920.979@0.23.1920.979" timestamp="1598298217245" />
-    <state width="1775" height="264" key="GridCell.Tab.0.right" timestamp="1598298217246">
+    <state width="1878" height="263" key="GridCell.Tab.0.left/0.23.1920.979@0.23.1920.979" timestamp="1599764221889" />
+    <state width="1878" height="263" key="GridCell.Tab.0.right" timestamp="1599764221892">
       <screen x="0" y="23" width="1920" height="979" />
     </state>
-    <state width="1775" height="264" key="GridCell.Tab.0.right/0.23.1920.979@0.23.1920.979" timestamp="1598298217246" />
+    <state width="1878" height="263" key="GridCell.Tab.0.right/0.23.1920.979@0.23.1920.979" timestamp="1599764221892" />
     <state x="941" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598406676959">
       <screen x="0" y="23" width="1920" height="979" />
     </state>
     <state x="941" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.979@0.23.1920.979" timestamp="1598406676959" />
-    <state x="751" y="242" width="670" height="676" key="search.everywhere.popup" timestamp="1598497868990">
+    <state x="751" y="242" width="670" height="676" key="search.everywhere.popup" timestamp="1599854492475">
       <screen x="0" y="23" width="1920" height="979" />
     </state>
-    <state x="751" y="242" width="670" height="676" key="search.everywhere.popup/0.23.1920.979@0.23.1920.979" timestamp="1598497868990" />
+    <state x="751" y="242" width="670" height="676" key="search.everywhere.popup/0.23.1920.979@0.23.1920.979" timestamp="1599854492475" />
   </component>
 </project>
