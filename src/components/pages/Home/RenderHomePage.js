@@ -31,7 +31,7 @@ function RenderHomePage(props) {
         <Sidebar />
         <Layout style={{ minHeight: '100vh' }}>
           <Header>
-            <Title>Hi {userInfo.name}. You can add a new user</Title>
+            <Title>Hi {userInfo.name}, you can add a new user</Title>
           </Header>
           <Content>
             <div className="input__form">

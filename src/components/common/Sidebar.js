@@ -37,7 +37,7 @@ function Sidebar(props) {
         </div>
         <Menu mode="inline">
           <Menu.Item key="1" icon={<GlobalOutlined />}>
-            <Link to="/map">Map</Link>
+            <Link to="/">Map</Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<EnvironmentOutlined />}>
             <Link to="/datarecords">Data Records</Link>
@@ -46,7 +46,7 @@ function Sidebar(props) {
             <Link to="/datatypes">Data Types</Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<UserOutlined />}>
-            <Link to="/">Create User</Link>
+            <Link to="/createuser">Create User</Link>
           </Menu.Item>
           <Row justify="center">
             <Button type="primary" onClick={() => authService.logout()}>
