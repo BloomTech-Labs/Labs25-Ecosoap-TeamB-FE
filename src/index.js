@@ -68,12 +68,14 @@ function App() {
         <SecureRoute
           path="/"
           exact
-          component={() => <HomePage LoadingComponent={LoadingComponent} />}
+          component={() => (
+            <ExampleListPage LoadingComponent={LoadingComponent} />
+          )}
         />
-        <SecureRoute path="/map" component={ExampleListPage} />
-        <SecureRoute path="/profile-list" component={ProfileListPage} />
         <SecureRoute path="/datarecords" component={DataRecordsPage} />
         <SecureRoute path="/datatypes" component={DataTypesPage} />
+        <SecureRoute path="/createuser" component={HomePage} />
+
         <Route component={NotFoundPage} />
       </Switch>
     </Security>
