@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 
 // ant.design imports
 import { DeleteOutlined } from '@ant-design/icons';
-import { Typography, Table, Button, Input, Popconfirm, Form } from 'antd';
+import { Typography, Table, Button, Input, Popconfirm, Form, Row } from 'antd';
 
 // App component imports
 import { RecordSubmit } from './../DataRecordSubmit';
@@ -33,6 +33,43 @@ const RECORD_QUERY = gql`
     }
   }
 `;
+
+// const UPDATE_RECORD_QUERY = gql`
+//   mutation {
+//     updateRecord(
+//       input: {
+//         id: "f4061943-146d-4a86-baaa-0a1a4987ce79-1598985743997"
+//         name: "Rando Local 03"
+//         # typeId: "7489e4dd-e44f-4ae6-8552-8de2a1eec7b1-1598887137215"
+//         coordinates: { latitude: -28.050505, longitude: 140.095051 }
+//         fields: [
+//           { name: "Update Field1", value: "1Field" }
+//           { name: "Update Field2", value: "2Field" }
+//           { name: "Update Field3", value: "3Field" }
+//         ]
+//       }
+//     ) {
+//       record {
+//         id
+//         name
+//         type {
+//           id
+//           name
+//         }
+//         fields {
+//           id
+//           name
+//           value
+//         }
+//         coordinates {
+//           latitude
+//           longitude
+//         }
+//       }
+//     }
+//   }
+// `;
+
 const DELETE_RECORD_MUTATION = gql`
   mutation deleteRecord($id: ID!) {
     deleteRecord(input: { id: $id }) {
@@ -92,14 +129,6 @@ const RecordsTable = () => {
   // Column definitions for ant design table
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-
-      editable: false,
-      sorter: (a, b) => a.id.localeCompare(b.id),
-    },
-    {
       title: 'Record Name',
       dataIndex: 'name',
       key: 'name',
@@ -134,38 +163,26 @@ const RecordsTable = () => {
       ],
     },
     {
-      title: 'Delete',
       dataIndex: 'delete',
       editable: false,
       key: 'id',
-      render: () => (
-        <Button
-          danger
-          onClick={e => {
-            if (e.target.type === 'button') {
+      render: (_, record) => (
+        <Row justify="center">
+          <Button
+            danger
+            onClick={e => {
               return (
                 deleteRecord({
                   variables: {
-                    id: e.target.parentElement.parentElement.dataset.rowKey,
+                    id: record.id,
                   },
                 }),
                 refetch()
               );
-            } else {
-              return (
-                deleteRecord({
-                  variables: {
-                    id:
-                      e.target.parentElement.parentElement.parentElement
-                        .parentElement.dataset.rowKey,
-                  },
-                }),
-                refetch()
-              );
-            }
-          }}
-          icon={<DeleteOutlined />}
-        />
+            }}
+            icon={<DeleteOutlined />}
+          />
+        </Row>
       ),
     },
   ];

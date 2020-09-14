@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 // Apollo imports
-import { useMutation, useQuery } from 'react-apollo';
+import { useMutation, useQuery, renderToStringWithData } from 'react-apollo';
 import gql from 'graphql-tag';
 
 // ant.design imports
 import { DeleteOutlined } from '@ant-design/icons';
-import { Typography, Table, Button, Input, Popconfirm, Form } from 'antd';
+import { Typography, Table, Button, Input, Popconfirm, Form, Row } from 'antd';
 
 import { TypeSubmit } from './../DataTypeSubmit';
 
@@ -144,12 +144,6 @@ const TypeList = () => {
   // Column definitions for Ant Design table
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'id',
-      editable: false,
-      sorter: (a, b) => a.id.localeCompare(b.id),
-    },
-    {
       title: 'Data Type',
       dataIndex: 'name',
       editable: true,
@@ -157,7 +151,7 @@ const TypeList = () => {
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
-      title: 'Operation',
+      // title: 'Operation',
       dataIndex: 'operation',
       render: (_, record) => {
         const editable = isEditing(record);
@@ -178,54 +172,36 @@ const TypeList = () => {
             </Popconfirm>
           </span>
         ) : (
-          <Button disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Edit
-          </Button>
+          <Row justify="center">
+            <Button disabled={editingKey !== ''} onClick={() => edit(record)}>
+              Edit
+            </Button>
+          </Row>
         );
       },
     },
     {
-      title: 'Delete',
+      // title: 'Delete',
       dataIndex: 'delete',
       editable: false,
       key: 'x',
-      render: () => (
-        <Button
-          danger
-          onClick={e => {
-            if (
-              typeof e.target.parentElement.parentElement.firstChild.firstChild
-                .data === 'string'
-            ) {
+      render: (_, record) => (
+        <Row justify="center">
+          <Button
+            danger
+            onClick={e => {
               return (
                 deleteType({
                   variables: {
-                    id:
-                      e.target.parentElement.parentElement.firstChild.firstChild
-                        .data,
+                    id: record.id,
                   },
                 }),
                 refetch()
               );
-            }
-          }}
-          icon={
-            <DeleteOutlined
-              onClick={e => {
-                return (
-                  deleteType({
-                    variables: {
-                      id:
-                        e.target.parentElement.parentElement.parentElement
-                          .parentElement.firstChild.firstChild.data,
-                    },
-                  }),
-                  refetch()
-                );
-              }}
-            />
-          }
-        />
+            }}
+            icon={<DeleteOutlined />}
+          />
+        </Row>
       ),
     },
   ];

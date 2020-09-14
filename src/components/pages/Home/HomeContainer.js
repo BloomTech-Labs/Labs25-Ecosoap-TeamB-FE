@@ -31,7 +31,7 @@ function HomeContainer({ LoadingComponent }) {
   return (
     <>
       {authState.isAuthenticated && !userInfo && (
-        <LoadingComponent message="Fetching user profile..." />
+        <LoadingComponent message="Fetching..." />
       )}
       {authState.isAuthenticated && userInfo && (
         <RenderHomePage userInfo={userInfo} authService={authService} />

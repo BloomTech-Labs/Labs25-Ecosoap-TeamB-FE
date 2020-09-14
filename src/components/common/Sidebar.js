@@ -36,20 +36,17 @@ function Sidebar(props) {
           <img src="./../../media/logo-320.png" alt="Eco-Soap Logo" />
         </div>
         <Menu mode="inline">
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            <Link to="/profile-list">Profile</Link>
+          <Menu.Item key="1" icon={<GlobalOutlined />}>
+            <Link to="/map">Map</Link>
           </Menu.Item>
-          <Menu.Item key="2" icon={<GlobalOutlined />}>
-            <Link to="/map">Map Console</Link>
+          <Menu.Item key="2" icon={<EnvironmentOutlined />}>
+            <Link to="/datarecords">Data Records</Link>
           </Menu.Item>
-          <Menu.Item key="3" icon={<EnvironmentOutlined />}>
-            <Link to="/datarecords">Data Records Console</Link>
+          <Menu.Item key="3" icon={<DatabaseOutlined />}>
+            <Link to="/datatypes">Data Types</Link>
           </Menu.Item>
-          <Menu.Item key="4" icon={<DatabaseOutlined />}>
-            <Link to="/datatypes">Data Types Console</Link>
-          </Menu.Item>
-          <Menu.Item key="5" icon={<UserOutlined />}>
-            <Link to="/">Main Dashboard</Link>
+          <Menu.Item key="4" icon={<UserOutlined />}>
+            <Link to="/">Create User</Link>
           </Menu.Item>
           <Row justify="center">
             <Button type="primary" onClick={() => authService.logout()}>
