@@ -6,10 +6,11 @@ import gql from 'graphql-tag';
 
 // ant.design imports
 import { DeleteOutlined } from '@ant-design/icons';
-import { Typography, Table, Button, Input, Popconfirm, Form, Row } from 'antd';
+import { Typography, Table, Button, Modal, Input, Form, Row } from 'antd';
 
 // App component imports
 import { RecordSubmit } from './../DataRecordSubmit';
+import EditForm from './EditForm';
 
 // Apollo Client queries and mutation
 const RECORD_QUERY = gql`
@@ -34,41 +35,41 @@ const RECORD_QUERY = gql`
   }
 `;
 
-// const UPDATE_RECORD_QUERY = gql`
-//   mutation {
-//     updateRecord(
-//       input: {
-//         id: "f4061943-146d-4a86-baaa-0a1a4987ce79-1598985743997"
-//         name: "Rando Local 03"
-//         # typeId: "7489e4dd-e44f-4ae6-8552-8de2a1eec7b1-1598887137215"
-//         coordinates: { latitude: -28.050505, longitude: 140.095051 }
-//         fields: [
-//           { name: "Update Field1", value: "1Field" }
-//           { name: "Update Field2", value: "2Field" }
-//           { name: "Update Field3", value: "3Field" }
-//         ]
-//       }
-//     ) {
-//       record {
-//         id
-//         name
-//         type {
-//           id
-//           name
-//         }
-//         fields {
-//           id
-//           name
-//           value
-//         }
-//         coordinates {
-//           latitude
-//           longitude
-//         }
-//       }
-//     }
-//   }
-// `;
+const UPDATE_RECORD_MUTATION = gql`
+  mutation {
+    updateRecord(
+      input: {
+        id: "f4061943-146d-4a86-baaa-0a1a4987ce79-1598985743997"
+        name: "Rando Local 03"
+        # typeId: "7489e4dd-e44f-4ae6-8552-8de2a1eec7b1-1598887137215"
+        coordinates: { latitude: -28.050505, longitude: 140.095051 }
+        fields: [
+          { name: "Update Field1", value: "1Field" }
+          { name: "Update Field2", value: "2Field" }
+          { name: "Update Field3", value: "3Field" }
+        ]
+      }
+    ) {
+      record {
+        id
+        name
+        type {
+          id
+          name
+        }
+        fields {
+          id
+          name
+          value
+        }
+        coordinates {
+          latitude
+          longitude
+        }
+      }
+    }
+  }
+`;
 
 const DELETE_RECORD_MUTATION = gql`
   mutation deleteRecord($id: ID!) {
@@ -85,10 +86,15 @@ const RecordsTable = () => {
 
   let recordsToRender = [];
 
-  //   const [editingKey, setEditingKey] = useState('');
+  const [modalState, setModalState] = useState({
+    ModalText: 'Content of Modal',
+    visible: false,
+    confirmLoading: false,
+    data: {},
+  });
 
   const [deleteRecord] = useMutation(DELETE_RECORD_MUTATION);
-  //   const [updateTypeMutation] = useMutation(UPDATE_TYPE_MUTATION);
+  const [updateRecordMutation] = useMutation(UPDATE_RECORD_MUTATION);
   const { loading, error, data, refetch } = useQuery(RECORD_QUERY, {
     pollInterval: 20000,
   });
@@ -112,7 +118,60 @@ const RecordsTable = () => {
   if (data.records !== undefined) {
     recordsToRender = data.records;
   }
-  // console.log('records', recordsToRender);
+  const submitUpdateRecord = props => {
+    // updateRecordMutation({
+    //   variables: {
+    //     id: props.key.toString(),
+    //     name: props.newType.name.toString(),
+    //   },
+    // });
+    console.log(props);
+    console.log('modalState', modalState);
+  };
+
+  const save = async key => {
+    try {
+      const newRecord = await form.validateFields();
+      // submitUpdateRecord({ key, newType });
+      console.log('save fcn', newRecord);
+      // setEditingKey('');
+    } catch (errInfo) {
+      console.log('Validate Failed:', errInfo);
+    }
+  };
+
+  ////////////////////////////////////
+  const showModal = props => {
+    setModalState({
+      ...modalState,
+      visible: true,
+      data: props,
+    });
+    // console.log("showModal props", props);
+  };
+
+  const handleOk = props => {
+    setModalState({
+      ...modalState,
+      ModalText: 'The modal will be closed after two seconds',
+      confirmLoading: true,
+    });
+    submitUpdateRecord(props);
+    setTimeout(() => {
+      setModalState({
+        ...modalState,
+        visible: false,
+        confirmLoading: false,
+      });
+    }, 2000);
+  };
+
+  const handleCancel = () => {
+    console.log('Clicked cancel button');
+    setModalState({
+      visible: false,
+    });
+  };
 
   // Define nested tables to display field data
   const expandedRowRender = props => {
@@ -163,6 +222,33 @@ const RecordsTable = () => {
       ],
     },
     {
+      // title: 'Operation',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        return (
+          <Row justify="center">
+            <Button onClick={() => showModal(record)}>Edit</Button>
+            <Modal
+              title="Edit Record"
+              // okText="Save"
+              footer={null}
+              visible={modalState.visible}
+              // onOk={handleOk}
+              confirmLoading={modalState.confirmLoading}
+              // onCancel={handleCancel}
+            >
+              <EditForm
+                modalData={modalState.data}
+                setModalState={setModalState}
+                handleCancel={handleCancel}
+                handleOk={handleOk}
+              />
+            </Modal>
+          </Row>
+        );
+      },
+    },
+    {
       dataIndex: 'delete',
       editable: false,
       key: 'id',
@@ -198,23 +284,15 @@ const RecordsTable = () => {
       </div>
       <div>
         <Title level={2}>Database</Title>
-        {/* <Form form={form} component={false}> */}
         <Table
-          // components={{
-          //   body: {
-          //     cell: EditableCell,
-          //   },
-          // }}
           bordered
           dataSource={recordsToRender}
-          // columns={mergedColumns}
           columns={columns}
           rowKey="id"
           expandable={{ expandedRowRender }}
           rowClassName="editable-row"
           onChange={tableFcns}
         />
-        {/* </Form> */}
       </div>
     </>
   );
