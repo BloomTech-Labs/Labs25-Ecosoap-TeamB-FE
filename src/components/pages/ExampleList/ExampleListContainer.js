@@ -46,6 +46,7 @@ const ExampleList = props => {
           <Sidebar />
           <Layout>
             <Header>
+              <h2>Map</h2>
               <iframe
                 src="https://api.mapbox.com/styles/v1/vlahorba/ckeyop2vy09aq19mvsb38yg2v.html?fresh=true&title=view&access_token=pk.eyJ1IjoidmxhaG9yYmEiLCJhIjoiY2s4ZjQ0d20yMDBlYTNscW9lZG0zNXU5ayJ9.ZQKJxY3FUYlxPyCuOqOxMA"
                 frameborder="0"
