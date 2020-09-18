@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 
 // ant.design imports
 import { DeleteOutlined } from '@ant-design/icons';
-import { Typography, Table, Button, Modal, Form, Row } from 'antd';
+import { Typography, Table, Button, Modal, Row } from 'antd';
 
 // App component imports
 import { RecordSubmit } from './../DataRecordSubmit';
@@ -46,7 +46,6 @@ const DELETE_RECORD_MUTATION = gql`
 
 const RecordsTable = () => {
   const { Title } = Typography;
-  const [form] = Form.useForm();
 
   let recordsToRender = [];
 
@@ -81,39 +80,6 @@ const RecordsTable = () => {
   if (data.records !== undefined) {
     recordsToRender = data.records;
   }
-  const submitUpdateRecord = props => {
-    //    createNewRecord({
-    //      variables: {
-    //        name: values.name,
-    //        typeId: values.dataRecordType,
-    //        coordinates: {
-    //          latitude: parseFloat(values.latitude),
-    //          longitude: parseFloat(values.longitude),
-    //        },
-    //        fields: values.fields,
-    //      },
-    //    });
-    // props.refetch();
-    // updateRecordMutation({
-    //   variables: {
-    //     id: props.key.toString(),
-    //     name: props.newType.name.toString(),
-    //   },
-    // });
-    console.log('submit props', props);
-    console.log('modalState', modalState);
-  };
-
-  const save = async key => {
-    try {
-      const newRecord = await form.validateFields();
-      // submitUpdateRecord({ key, newType });
-      console.log('save fcn', newRecord);
-      // setEditingKey('');
-    } catch (errInfo) {
-      console.log('Validate Failed:', errInfo);
-    }
-  };
 
   ////////////////////////////////////
   const showModal = props => {

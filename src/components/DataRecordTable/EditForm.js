@@ -60,11 +60,6 @@ const tailLayout = {
 };
 
 const EditForm = props => {
-  console.log('edit form props', props.modalData.id);
-  // for (let i = 0; i < props.modalData.fields.length; i++) {
-  //   console.log(props.modalData.fields[i]);
-  // }
-  const [form] = Form.useForm();
   let dataTypes = [];
   const [updateRecordMutation] = useMutation(UPDATE_RECORD_MUTATION);
   const { loading, error, data } = useQuery(TYPE_QUERY, {
@@ -96,13 +91,6 @@ const EditForm = props => {
     types.push(<Select value={dataTypes[i].id}>{dataTypes[i].name}</Select>);
   }
 
-  const onTypeChange = value => {
-    console.log(value);
-    form.setFieldsValue({
-      dataRecordType: 'value',
-    });
-  };
-
   const onFinish = values => {
     console.log('onFinish vlues', Object.values(values.fields));
     const updatedFields = [];
@@ -127,17 +115,6 @@ const EditForm = props => {
         fields: updatedFields,
       },
     });
-    //    createNewRecord({
-    //      variables: {
-    //        name: values.name,
-    //        typeId: values.dataRecordType,
-    //        coordinates: {
-    //          latitude: parseFloat(values.latitude),
-    //          longitude: parseFloat(values.longitude),
-    //        },
-    //        fields: values.fields,
-    //      },
-    //    });
     props.handleOk();
     props.refetch();
   };
@@ -151,8 +128,6 @@ const EditForm = props => {
       <Form
         {...layout}
         name="basic"
-        // layout="vertical"
-        // initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
@@ -166,24 +141,6 @@ const EditForm = props => {
         >
           <Input />
         </Form.Item>
-        {/* <Form.Item
-          name="dataRecordType"
-          label="Record Type"
-          // initialValue={props.modalData.type.name}
-          rules={[
-            {
-              required: true,
-              message: 'Please select a data record type.',
-            },
-          ]}
-        >
-          <Select
-            placeholder={props.modalData.type.name}
-            onChange={onTypeChange}
-          >
-            {types}
-          </Select>
-        </Form.Item> */}
         <Form.Item
           label="Latitude"
           name="latitude"
@@ -223,7 +180,6 @@ const EditForm = props => {
                     >
                       <Form.Item
                         {...field}
-                        // label="Name"
                         name={[field.name, 'name']}
                         fieldKey={[field.fieldKey, 'name']}
                         initialValue={[field.name]}
@@ -238,7 +194,6 @@ const EditForm = props => {
                       </Form.Item>
                       <Form.Item
                         {...field}
-                        // label="Value"
                         name={[field.name, 'value']}
                         fieldKey={[field.fieldKey, 'value']}
                         initialValue={[field.value]}
