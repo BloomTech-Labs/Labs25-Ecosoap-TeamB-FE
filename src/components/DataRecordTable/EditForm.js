@@ -16,15 +16,18 @@ const TYPE_QUERY = gql`
 `;
 // Layout variables for Ant Design Form
 const layout = {
-  labelCol: { span: 8, offset: 2 },
-  wrapperCol: { span: 10 },
+  labelCol: { span: 5, offset: 2 },
+  wrapperCol: { span: 20 },
 };
 const tailLayout = {
   wrapperCol: { offset: 10, span: 16 },
 };
 
 const EditForm = props => {
-  console.log('EditForm', props);
+  console.log('edit for props', props.modalData.id);
+  // for (let i = 0; i < props.modalData.fields.length; i++) {
+  //   console.log(props.modalData.fields[i]);
+  // }
   const [form] = Form.useForm();
   let dataTypes = [];
 
@@ -51,19 +54,21 @@ const EditForm = props => {
     dataTypes = data.types;
   }
 
-  // Generate dropdown entries fro selecting Data Types
+  // Generate dropdown entries for selecting Data Types
   const types = [];
   for (let i = 0; i < dataTypes.length; i++) {
     types.push(<Select value={dataTypes[i].id}>{dataTypes[i].name}</Select>);
   }
 
   const onTypeChange = value => {
+    console.log(value);
     form.setFieldsValue({
       dataRecordType: 'value',
     });
   };
 
   const onFinish = values => {
+    console.log('onFinish vlues', values);
     //    createNewRecord({
     //      variables: {
     //        name: values.name,
@@ -75,6 +80,7 @@ const EditForm = props => {
     //        fields: values.fields,
     //      },
     //    });
+    props.handleOk();
     props.refetch();
   };
 
@@ -88,13 +94,14 @@ const EditForm = props => {
         {...layout}
         name="basic"
         // layout="vertical"
-        initialValues={{ remember: true }}
+        // initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
         <Form.Item
           label="Name"
           name="name"
+          initialValue={props.modalData.name}
           rules={[
             { required: true, message: 'Please input data record name.' },
           ]}
@@ -104,16 +111,17 @@ const EditForm = props => {
         <Form.Item
           name="dataRecordType"
           label="Record Type"
+          // initialValue={props.modalData.type.name}
           rules={[
             {
               required: true,
+              message: 'Please select a data record type.',
             },
           ]}
         >
           <Select
-            placeholder="Select data type."
+            placeholder={props.modalData.type.name}
             onChange={onTypeChange}
-            allowClear
           >
             {types}
           </Select>
@@ -121,6 +129,7 @@ const EditForm = props => {
         <Form.Item
           label="Latitude"
           name="latitude"
+          initialValue={props.modalData.coordinates.latitude.toString()}
           rules={[
             {
               required: true,
@@ -133,6 +142,7 @@ const EditForm = props => {
         <Form.Item
           label="Longitude"
           name="longitude"
+          initialValue={props.modalData.coordinates.longitude.toString()}
           rules={[
             {
               required: true,
@@ -144,10 +154,10 @@ const EditForm = props => {
         </Form.Item>
         <Form.Item label="Fields">
           <Form.List name="fields">
-            {(fields, { add, remove }) => {
+            {fields => {
               return (
                 <div>
-                  {fields.map(field => (
+                  {props.modalData.fields.map(field => (
                     <Space
                       key={field.key}
                       style={{ display: 'flex', marginBottom: 8 }}
@@ -155,8 +165,10 @@ const EditForm = props => {
                     >
                       <Form.Item
                         {...field}
+                        // label="Name"
                         name={[field.name, 'name']}
                         fieldKey={[field.fieldKey, 'name']}
+                        initialValue={[field.name]}
                         rules={[
                           {
                             required: true,
@@ -168,8 +180,10 @@ const EditForm = props => {
                       </Form.Item>
                       <Form.Item
                         {...field}
+                        // label="Value"
                         name={[field.name, 'value']}
                         fieldKey={[field.fieldKey, 'value']}
+                        initialValue={[field.value]}
                         rules={[
                           {
                             required: true,
@@ -179,26 +193,8 @@ const EditForm = props => {
                       >
                         <Input placeholder="Field Value" />
                       </Form.Item>
-
-                      <MinusCircleOutlined
-                        onClick={() => {
-                          remove(field.name);
-                        }}
-                      />
                     </Space>
                   ))}
-
-                  <Form.Item>
-                    <Button
-                      type="dashed"
-                      onClick={() => {
-                        add();
-                      }}
-                      block
-                    >
-                      <PlusOutlined /> Add field
-                    </Button>
-                  </Form.Item>
                 </div>
               );
             }}
@@ -212,8 +208,7 @@ const EditForm = props => {
             }}
             onClick={props.handleCancel}
           >
-            {' '}
-            Cancel{' '}
+            Cancel
           </Button>
           <Button type="primary" htmlType="submit">
             Submit

@@ -119,13 +119,25 @@ const RecordsTable = () => {
     recordsToRender = data.records;
   }
   const submitUpdateRecord = props => {
+    //    createNewRecord({
+    //      variables: {
+    //        name: values.name,
+    //        typeId: values.dataRecordType,
+    //        coordinates: {
+    //          latitude: parseFloat(values.latitude),
+    //          longitude: parseFloat(values.longitude),
+    //        },
+    //        fields: values.fields,
+    //      },
+    //    });
+    // props.refetch();
     // updateRecordMutation({
     //   variables: {
     //     id: props.key.toString(),
     //     name: props.newType.name.toString(),
     //   },
     // });
-    console.log(props);
+    console.log('submit props', props);
     console.log('modalState', modalState);
   };
 
@@ -147,28 +159,29 @@ const RecordsTable = () => {
       visible: true,
       data: props,
     });
-    // console.log("showModal props", props);
+    console.log('showModal props', props);
   };
 
-  const handleOk = props => {
+  const handleOk = () => {
     setModalState({
       ...modalState,
-      ModalText: 'The modal will be closed after two seconds',
       confirmLoading: true,
     });
-    submitUpdateRecord(props);
+
     setTimeout(() => {
       setModalState({
         ...modalState,
         visible: false,
         confirmLoading: false,
       });
+      refetch();
     }, 2000);
   };
 
-  const handleCancel = () => {
+  const handleCancel = e => {
     console.log('Clicked cancel button');
     setModalState({
+      ...modalState,
       visible: false,
     });
   };
@@ -176,7 +189,6 @@ const RecordsTable = () => {
   // Define nested tables to display field data
   const expandedRowRender = props => {
     const columns = [
-      { title: 'Field Id', dataIndex: 'id', key: 'date' },
       { title: 'Field Name', dataIndex: 'name', key: 'name' },
       { title: 'Field Value', dataIndex: 'value', key: 'value' },
     ];
@@ -229,6 +241,7 @@ const RecordsTable = () => {
           <Row justify="center">
             <Button onClick={() => showModal(record)}>Edit</Button>
             <Modal
+              destroyOnClose
               title="Edit Record"
               // okText="Save"
               footer={null}
