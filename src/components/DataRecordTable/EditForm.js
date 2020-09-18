@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Input, Button, Space, Select } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { useQuery, useMutation } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -14,6 +13,43 @@ const TYPE_QUERY = gql`
     }
   }
 `;
+
+const UPDATE_RECORD_MUTATION = gql`
+  mutation updateRecordMutation(
+    $id: ID!
+    $name: String
+    $coordinates: CoordinatesInput!
+    $fields: [FieldInput!]
+  ) {
+    updateRecord(
+      input: {
+        id: $id
+        name: $name
+        coordinates: $coordinates
+        fields: $fields
+      }
+    ) {
+      record {
+        id
+        name
+        type {
+          id
+          name
+        }
+        fields {
+          id
+          name
+          value
+        }
+        coordinates {
+          latitude
+          longitude
+        }
+      }
+    }
+  }
+`;
+
 // Layout variables for Ant Design Form
 const layout = {
   labelCol: { span: 5, offset: 2 },
@@ -24,13 +60,13 @@ const tailLayout = {
 };
 
 const EditForm = props => {
-  console.log('edit for props', props.modalData.id);
+  console.log('edit form props', props.modalData.id);
   // for (let i = 0; i < props.modalData.fields.length; i++) {
   //   console.log(props.modalData.fields[i]);
   // }
   const [form] = Form.useForm();
   let dataTypes = [];
-
+  const [updateRecordMutation] = useMutation(UPDATE_RECORD_MUTATION);
   const { loading, error, data } = useQuery(TYPE_QUERY, {
     pollInterval: 50000,
   });
@@ -68,7 +104,29 @@ const EditForm = props => {
   };
 
   const onFinish = values => {
-    console.log('onFinish vlues', values);
+    console.log('onFinish vlues', Object.values(values.fields));
+    const updatedFields = [];
+    for (let i = 0; i < Object.values(values.fields).length; i++) {
+      Object.values(values.fields)[i].name = Object.values(values.fields)[
+        i
+      ].name.toString();
+      Object.values(values.fields)[i].value = Object.values(values.fields)[
+        i
+      ].value.toString();
+      updatedFields.push(Object.values(values.fields)[i]);
+      console.log(updatedFields);
+    }
+    updateRecordMutation({
+      variables: {
+        id: props.modalData.id,
+        name: values.name,
+        coordinates: {
+          latitude: parseFloat(values.latitude),
+          longitude: parseFloat(values.longitude),
+        },
+        fields: updatedFields,
+      },
+    });
     //    createNewRecord({
     //      variables: {
     //        name: values.name,
@@ -108,7 +166,7 @@ const EditForm = props => {
         >
           <Input />
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           name="dataRecordType"
           label="Record Type"
           // initialValue={props.modalData.type.name}
@@ -125,7 +183,7 @@ const EditForm = props => {
           >
             {types}
           </Select>
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
           label="Latitude"
           name="latitude"

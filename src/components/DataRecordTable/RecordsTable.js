@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 
 // ant.design imports
 import { DeleteOutlined } from '@ant-design/icons';
-import { Typography, Table, Button, Modal, Input, Form, Row } from 'antd';
+import { Typography, Table, Button, Modal, Form, Row } from 'antd';
 
 // App component imports
 import { RecordSubmit } from './../DataRecordSubmit';
@@ -35,42 +35,6 @@ const RECORD_QUERY = gql`
   }
 `;
 
-const UPDATE_RECORD_MUTATION = gql`
-  mutation {
-    updateRecord(
-      input: {
-        id: "f4061943-146d-4a86-baaa-0a1a4987ce79-1598985743997"
-        name: "Rando Local 03"
-        # typeId: "7489e4dd-e44f-4ae6-8552-8de2a1eec7b1-1598887137215"
-        coordinates: { latitude: -28.050505, longitude: 140.095051 }
-        fields: [
-          { name: "Update Field1", value: "1Field" }
-          { name: "Update Field2", value: "2Field" }
-          { name: "Update Field3", value: "3Field" }
-        ]
-      }
-    ) {
-      record {
-        id
-        name
-        type {
-          id
-          name
-        }
-        fields {
-          id
-          name
-          value
-        }
-        coordinates {
-          latitude
-          longitude
-        }
-      }
-    }
-  }
-`;
-
 const DELETE_RECORD_MUTATION = gql`
   mutation deleteRecord($id: ID!) {
     deleteRecord(input: { id: $id }) {
@@ -94,7 +58,6 @@ const RecordsTable = () => {
   });
 
   const [deleteRecord] = useMutation(DELETE_RECORD_MUTATION);
-  const [updateRecordMutation] = useMutation(UPDATE_RECORD_MUTATION);
   const { loading, error, data, refetch } = useQuery(RECORD_QUERY, {
     pollInterval: 20000,
   });
@@ -162,7 +125,7 @@ const RecordsTable = () => {
     console.log('showModal props', props);
   };
 
-  const handleOk = () => {
+  const handleOk = props => {
     setModalState({
       ...modalState,
       confirmLoading: true,
