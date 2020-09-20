@@ -18,7 +18,6 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { NotFoundPage } from './components/pages/NotFound';
 import { ExampleListPage } from './components/pages/ExampleList';
-import { ProfileListPage } from './components/pages/ProfileList';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
 import { DataRecordsPage } from './components/pages/DataRecords';

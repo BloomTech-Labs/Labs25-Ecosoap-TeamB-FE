@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // Apollo imports
-import { useMutation, useQuery, renderToStringWithData } from 'react-apollo';
+import { useMutation, useQuery } from 'react-apollo';
 import gql from 'graphql-tag';
 
 // ant.design imports
