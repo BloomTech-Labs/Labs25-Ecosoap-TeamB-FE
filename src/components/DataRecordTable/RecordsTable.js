@@ -228,7 +228,6 @@ const RecordsTable = () => {
       <Divider />
       <div style={{ width: '90%', margin: '0 auto' }}>
         <Title level={2}>Database</Title>
-        {/* <div style={{ padding: '0 10px' }}> */}
         <Table
           style={{ padding: '20px 40px' }}
           bordered
@@ -239,7 +238,6 @@ const RecordsTable = () => {
           rowClassName="editable-row"
           onChange={tableFcns}
         />
-        {/* </div> */}
       </div>
     </>
   );

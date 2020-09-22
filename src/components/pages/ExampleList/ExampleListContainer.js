@@ -2,15 +2,13 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 
 import PropTypes from 'prop-types';
-import { Layout, Typography } from 'antd';
+import { Layout } from 'antd';
 import './Map.css';
 
 import { Sidebar } from '../../common';
-import { TypesList } from '../../DataTypeTable';
 
 const ExampleList = props => {
   const { Header, Footer, Content } = Layout;
-  const { Title } = Typography;
 
   const { authState, authService } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
@@ -49,6 +47,7 @@ const ExampleList = props => {
               <iframe
                 src="https://api.mapbox.com/styles/v1/vlahorba/ckeyop2vy09aq19mvsb38yg2v.html?fresh=true&title=view&access_token=pk.eyJ1IjoidmxhaG9yYmEiLCJhIjoiY2s4ZjQ0d20yMDBlYTNscW9lZG0zNXU5ayJ9.ZQKJxY3FUYlxPyCuOqOxMA"
                 frameborder="0"
+                title="map"
               ></iframe>
             </Header>
             <Content></Content>
