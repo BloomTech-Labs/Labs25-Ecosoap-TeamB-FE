@@ -16,7 +16,7 @@ const RenderDataTypesPage = props => {
           <Sidebar />
           <Layout>
             <Header>
-              <Title> Data Records Console</Title>
+              <Title style={{ padding: '20px 0' }}> Data Records Console</Title>
             </Header>
             <Content>
               <RecordsTable />

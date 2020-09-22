@@ -239,26 +239,33 @@ const TypeList = () => {
   return (
     <div>
       <Divider />
-      <Space direction="vertical" size={'large'}>
+      <div style={{ width: '90%', margin: '0 auto' }}>
+        <Title level={2}>Submit new data type</Title>
         <TypeSubmit refetch={refetch} />
-        <div style={{ width: '600px' }}>
-          <Form form={form} component={false}>
-            <Table
-              style={{ padding: '20px 40px' }}
-              components={{
-                body: {
-                  cell: EditableCell,
-                },
-              }}
-              bordered
-              dataSource={typesToRender}
-              columns={mergedColumns}
-              rowClassName="editable-row"
-              onChange={tableFcns}
-            />
-          </Form>
-        </div>
-      </Space>
+      </div>
+      <Divider />
+      {/* <div> */}
+      <div style={{ width: '90%', maxWidth: '850px', margin: '0 40px' }}>
+        <Title level={2}>Database</Title>
+
+        <Form form={form} component={false}>
+          <Table
+            style={{ padding: '20px 40px' }}
+            components={{
+              body: {
+                cell: EditableCell,
+              },
+            }}
+            bordered
+            dataSource={typesToRender}
+            columns={mergedColumns}
+            rowClassName="editable-row"
+            onChange={tableFcns}
+          />
+        </Form>
+      </div>
+      {/* </div> */}
+      {/* </Space> */}
     </div>
   );
 };

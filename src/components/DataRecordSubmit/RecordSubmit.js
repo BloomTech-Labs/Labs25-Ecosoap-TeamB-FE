@@ -52,11 +52,11 @@ const POST_RECORD_MUTATION = gql`
 
 // Layout variables for Ant Design Form
 const layout = {
-  labelCol: { span: 4, offset: 2 },
-  wrapperCol: { span: 10 },
+  labelCol: { span: 4, offset: 0 },
+  wrapperCol: { span: 18 },
 };
 const tailLayout = {
-  wrapperCol: { offset: 10, span: 16 },
+  wrapperCol: { offset: 12, span: 16 },
 };
 
 const RecordSubmit = props => {

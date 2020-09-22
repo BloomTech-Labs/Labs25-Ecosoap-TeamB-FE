@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 
 // ant.design imports
 import { DeleteOutlined } from '@ant-design/icons';
-import { Typography, Table, Button, Modal, Row } from 'antd';
+import { Typography, Table, Button, Modal, Row, Divider } from 'antd';
 
 // App component imports
 import { RecordSubmit } from './../DataRecordSubmit';
@@ -220,13 +220,17 @@ const RecordsTable = () => {
   }
   return (
     <>
-      <div>
-        <h2>Submit new data record:</h2>
+      <Divider />
+      <div style={{ width: '90%', margin: '0 40px' }}>
+        <Title level={2}>Submit new data record</Title>
         <RecordSubmit refetch={refetch} />
       </div>
-      <div>
+      <Divider />
+      <div style={{ width: '90%', margin: '0 auto' }}>
         <Title level={2}>Database</Title>
+        {/* <div style={{ padding: '0 10px' }}> */}
         <Table
+          style={{ padding: '20px 40px' }}
           bordered
           dataSource={recordsToRender}
           columns={columns}
@@ -235,6 +239,7 @@ const RecordsTable = () => {
           rowClassName="editable-row"
           onChange={tableFcns}
         />
+        {/* </div> */}
       </div>
     </>
   );
