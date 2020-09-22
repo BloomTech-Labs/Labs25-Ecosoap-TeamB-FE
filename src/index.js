@@ -40,7 +40,7 @@ ReactDOM.render(
   <Router>
     <React.StrictMode>
       <ApolloProvider client={client}>
-        <App />
+        <App client={client} />
       </ApolloProvider>
     </React.StrictMode>
   </Router>,
