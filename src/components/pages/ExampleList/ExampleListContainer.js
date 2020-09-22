@@ -41,7 +41,7 @@ const ExampleList = props => {
       )}
       <>
         <Layout style={{ minHeight: '100vh' }}>
-          <Sidebar />
+          <Sidebar selectedKey={'1'} />
           <Layout>
             <Header>
               <iframe
