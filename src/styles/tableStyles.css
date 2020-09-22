@@ -1,0 +1,7 @@
+.ant-table-thead > tr > th {
+  font-weight: 600;
+  font-size: 20px;
+}
+.ant-table-content > table > tbody > tr > td {
+  font-size: 16px;
+}

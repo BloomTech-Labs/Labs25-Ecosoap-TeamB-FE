@@ -19,6 +19,8 @@ import {
 
 import { TypeSubmit } from './../DataTypeSubmit';
 
+import '../../styles/tableStyles.css';
+
 // Query for Apollo Client
 const TYPE_QUERY = gql`
   {
@@ -239,12 +241,12 @@ const TypeList = () => {
     <div>
       <Divider />
       <div style={{ width: '90%', margin: '0 40px' }}>
-        <Title level={3}>Submit new data type</Title>
+        <Title level={2}>Submit new data type</Title>
         <TypeSubmit refetch={refetch} />
       </div>
       <Divider />
       <div style={{ width: '90%', maxWidth: '850px', margin: '0 40px' }}>
-        <Title level={3}>Database</Title>
+        <Title level={2}>Database</Title>
 
         <Form form={form} component={false}>
           <Table
