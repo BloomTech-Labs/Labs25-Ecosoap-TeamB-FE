@@ -222,12 +222,12 @@ const RecordsTable = () => {
     <>
       <Divider />
       <div style={{ width: '90%', margin: '0 40px' }}>
-        <Title level={2}>Submit new data record</Title>
+        <Title level={3}>Submit new data record</Title>
         <RecordSubmit refetch={refetch} />
       </div>
       <Divider />
-      <div style={{ width: '90%', margin: '0 auto' }}>
-        <Title level={2}>Database</Title>
+      <div style={{ width: '90%', margin: '0 40px' }}>
+        <Title level={3}>Database</Title>
         <Table
           style={{ padding: '20px 40px' }}
           bordered
