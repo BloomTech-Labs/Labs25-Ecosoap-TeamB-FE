@@ -6,7 +6,17 @@ import gql from 'graphql-tag';
 
 // ant.design imports
 import { DeleteOutlined } from '@ant-design/icons';
-import { Typography, Table, Button, Input, Popconfirm, Form, Row } from 'antd';
+import {
+  Typography,
+  Table,
+  Button,
+  Input,
+  Popconfirm,
+  Form,
+  Row,
+  Space,
+  Divider,
+} from 'antd';
 
 import { TypeSubmit } from './../DataTypeSubmit';
 
@@ -228,26 +238,27 @@ const TypeList = () => {
 
   return (
     <div>
-      <TypeSubmit refetch={refetch} />
-
-      <div>
-        <Title level={2}>Database</Title>
-
-        <Form form={form} component={false}>
-          <Table
-            components={{
-              body: {
-                cell: EditableCell,
-              },
-            }}
-            bordered
-            dataSource={typesToRender}
-            columns={mergedColumns}
-            rowClassName="editable-row"
-            onChange={tableFcns}
-          />
-        </Form>
-      </div>
+      <Divider />
+      <Space direction="vertical" size={'large'}>
+        <TypeSubmit refetch={refetch} />
+        <div style={{ width: '600px' }}>
+          <Form form={form} component={false}>
+            <Table
+              style={{ padding: '20px 40px' }}
+              components={{
+                body: {
+                  cell: EditableCell,
+                },
+              }}
+              bordered
+              dataSource={typesToRender}
+              columns={mergedColumns}
+              rowClassName="editable-row"
+              onChange={tableFcns}
+            />
+          </Form>
+        </div>
+      </Space>
     </div>
   );
 };
