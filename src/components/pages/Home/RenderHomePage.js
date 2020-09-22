@@ -28,7 +28,7 @@ function RenderHomePage(props) {
   return (
     <div>
       <Layout>
-        <Sidebar />
+        <Sidebar selectedKey={'4'} />
         <Layout style={{ minHeight: '100vh' }}>
           <Header>
             <Title>Hi {userInfo.name}, you can add a new user</Title>

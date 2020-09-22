@@ -35,21 +35,46 @@ function Sidebar(props) {
         <div className="logo">
           <img src="./../../media/logo-320.png" alt="Eco-Soap Logo" />
         </div>
-        <Menu mode="inline">
+        <Menu
+          mode="inline"
+          defaultSelectedKeys="1"
+          selectedKeys={props.selectedKey}
+        >
           <Menu.Item key="1" icon={<GlobalOutlined />}>
-            <Link to="/">Map</Link>
+            <Link to="/" style={{ fontSize: '18px', fontWeight: '500' }}>
+              Map
+            </Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<EnvironmentOutlined />}>
-            <Link to="/datarecords">Data Records</Link>
+            <Link
+              to="/datarecords"
+              style={{ fontSize: '18px', fontWeight: '500' }}
+            >
+              Data Records
+            </Link>
           </Menu.Item>
           <Menu.Item key="3" icon={<DatabaseOutlined />}>
-            <Link to="/datatypes">Data Types</Link>
+            <Link
+              to="/datatypes"
+              style={{ fontSize: '18px', fontWeight: '500' }}
+            >
+              Data Types
+            </Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<UserOutlined />}>
-            <Link to="/createuser">Create User</Link>
+            <Link
+              to="/createuser"
+              style={{ fontSize: '18px', fontWeight: '500' }}
+            >
+              Create User
+            </Link>
           </Menu.Item>
-          <Row justify="center">
-            <Button type="primary" onClick={() => authService.logout()}>
+          <Row justify="center" style={{ marginTop: '30px' }}>
+            <Button
+              type="primary"
+              onClick={() => authService.logout()}
+              style={{ fontWeight: '600' }}
+            >
               Logout
             </Button>
           </Row>

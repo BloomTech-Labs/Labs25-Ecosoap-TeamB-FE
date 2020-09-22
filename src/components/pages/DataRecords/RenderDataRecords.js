@@ -13,7 +13,7 @@ const RenderDataTypesPage = props => {
     <div>
       <>
         <Layout style={{ minHeight: '100vh' }}>
-          <Sidebar />
+          <Sidebar selectedKey={'2'} />
           <Layout>
             <Header>
               <Title style={{ padding: '20px 0' }}> Data Records Console</Title>
