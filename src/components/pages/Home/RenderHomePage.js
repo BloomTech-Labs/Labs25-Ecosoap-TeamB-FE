@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Layout, Typography } from 'antd';
 import { Sidebar } from '../../common';
 import gql from 'graphql-tag';
-import { useQuery, useMutation } from 'react-apollo';
+import { useMutation } from 'react-apollo';
 import './RenderHomePage.css';
 
 const mutation = gql`
