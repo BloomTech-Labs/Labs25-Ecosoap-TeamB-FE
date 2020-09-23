@@ -15,7 +15,7 @@ const LoginContainer = () => {
       registration: {
         // there is more we can do to handle some errors here.
       },
-      features: { registration: true },
+      features: { registration: false },
       // turning this feature on allows your widget to use Okta for user registration
       logo: './../../../media/logo-320.png',
       logoText: 'Eco-Soap Bank Logo',
