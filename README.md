@@ -46,7 +46,7 @@ Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it 
 
 #### For Future Contributors
 
-9/24/20 - A walkthrough of the work done the Labs25 React team:
+9/24/20 - A walkthrough of the work done by the Labs25 React team:
 
 [![Watch the video walkthrough](https://img.youtube.com/vi/lIpYpAr8ZK8/hqdefault.jpg)](https://youtu.be/lIpYpAr8ZK8)
 
