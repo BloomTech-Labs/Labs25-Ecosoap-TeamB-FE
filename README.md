@@ -44,6 +44,12 @@ When contributing to this repository, please first discuss the change you wish t
 
 Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
 
+#### For Future Contributors
+
+9/24/20 - A walkthrough of the work done the Labs25 React team:
+
+[![Watch the video walkthrough](https://img.youtube.com/vi/lIpYpAr8ZK8/hqdefault.jpg)](https://youtu.be/lIpYpAr8ZK8)
+
 ## Issue/Bug Request
 
 **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
@@ -69,3 +75,4 @@ Remember that this project is licensed under the MIT license, and by submitting 
 - Ensure that your code conforms to our existing code conventions and test coverage.
 - Include the relevant issue number, if applicable.
 - You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
+
